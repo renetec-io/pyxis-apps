@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Admin Panel | Default Application</title>
+        <link rel="stylesheet" href="static/css/vendor/material.css"/>
+        <link rel="stylesheet" href="static/css/assets/default.css"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <meta charset="utf-8"/>
+        <script src="static/js/pyxis-api.js"></script>
+        <script>
+            let appToRun;
+            function updateDefault() {
+                if (document.getElementById("start-on-boot").checked == false) {
+                    // FIXME: temporarily hardcoded
+                    pyxis.apps.setDefault('Admin Panel', '0.1');
+                }
+            }
+            function runApp() {
+                updateDefault();
+                if (typeof appToRun !== 'undefined') {
+                    window.location.href = `file://${appToRun.libPath}${appToRun.path}/index.html`;
+                } else {
+                    window.location.href = 'index.html';
+                }
+            }
+            function navigateBack() {
+                updateDefault();
+                window.history.back();
+            }
+            function doPopulate(app) {
+                if (typeof app !== 'undefined')
+                {
+                    document.getElementById('app-name').innerText = app.name;
+                    appToRun = app;
+                } else {
+                    document.getElementById('app-name').innerText = "Admin Panel";
+                }
+            }
+            function populate() {
+                let params = new URLSearchParams(document.location.search.substring(1));
+                let tag = params.get('app');
+                pyxis.apps.getDefault().then(doPopulate).catch((e) => console.error(e));
+            }
+        </script>
+    </head>
+    <body onload="populate()">
+        <div class="main-content">
+
+            <div class="title-section">
+                <h1><button onclick="navigateBack()" class="icon-button" ripple="circle"><i class="icon-keyboard-arrow-left"></i></button> Default Application</h1>
+            </div>
+
+            <div class="navigation-section">
+                <div class="page">
+                    <h3 id="app-name"></h3>
+                    <p id="app-description" class="justify-text f-1-2"></p>
+                    <p class="center-text f-1-2">
+                        <span class="checkbox">
+                            <input type="checkbox" id="start-on-boot" checked/>
+                            <label for="start-on-boot"></label>
+                        </span>
+                        <label for="start-on-boot">Start on boot</label>
+                    </p>
+                    <p class="center-text f-1-4">
+                        <button class="button raised bg-blue-500 color-white" onclick="runApp()">Start</button>
+                    </p>
+                </div>
+            </div>
+
+        </div>
+        <!-- End content -->
+        <script src="static/js/material.js"></script>
+    </body>
+</html>

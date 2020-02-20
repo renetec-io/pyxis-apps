@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Admin Panel | Installed Applications</title>
+        <link rel="stylesheet" href="static/css/vendor/material.css"/>
+        <link rel="stylesheet" href="static/css/assets/installed.css"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <meta charset="utf-8"/>
+        <script src="static/js/pyxis-api.js"></script>
+        <script>
+            function openApp(tag) {
+                window.location.href = `application.html?tag=${tag}`;
+            }
+            function doPopulate(apps) {
+                let content = "";
+                apps.forEach(app => {
+                    let tag = pyxis.apps.tag(app);
+                    content += `<li class="flex"><button class="button item-text" ripple="ripple" onclick="openApp('${tag}')"><h3>${app.name}</h3><span class="secondary-text">Version: ${app.version}</span></button></li>`;
+                });
+                document.getElementById("apps-list").innerHTML = content;
+            }
+            function populate() {
+                pyxis.apps.getInstalled().then(doPopulate).catch((e) => console.error(e));
+            }
+        </script>
+    </head>
+    <body onload="populate()">
+        <div class="main-content">
+
+            <div class="title-section">
+                <h1><button onclick="window.location.href='index.html'" class="icon-button" ripple="circle"><i class="icon-keyboard-arrow-left"></i></button> Installed Applications</h1>
+            </div>
+
+            <div class="navigation-section">
+                <ul id="apps-list" class="list">
+                </ul>
+            </div>
+
+        </div>
+        <!-- End content -->
+        <script src="static/js/material.js"></script>
+    </body>
+</html>

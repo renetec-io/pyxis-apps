@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Admin Panel | Time and Date</title>
+        <link rel="stylesheet" href="static/css/vendor/material.css"/>
+        <link rel="stylesheet" href="static/css/vendor/picker.min.css"/>
+        <link rel="stylesheet" href="static/css/assets/dates.css"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <meta charset="utf-8"/>
+    </head>
+    <body>
+        <div class="main-content">
+
+            <div class="title-section">
+                <h1><button onclick="window.location.href='index.html'" class="icon-button" ripple="circle"><i class="icon-keyboard-arrow-left"></i></button> Time and Date</h1>
+            </div>
+
+            <div class="navigation-section">
+                <div class="card card-button">
+                    <button class="button item-text" onclick="Dialog.show(document.querySelector('#dialog-date'));datePicker.show();" ripple="ripple">
+                        <h3>Date</h3>
+                        <span class="secondary-text">
+                            November 21st, 2019
+                        </span>
+                    </button>
+                </div>
+                <div class="card card-button">
+                    <button class="button item-text" onclick="Dialog.show(document.querySelector('#dialog-time'));timePicker.show();" ripple="ripple">
+                        <h3>Time</h3>
+                        <span class="secondary-text">
+                            10:14 am
+                        </span>
+                    </button>
+                </div>
+                <div class="card card-button">
+                    <button class="button item-text" onclick="Dialog.show(document.querySelector('#dialog-timezone'));" ripple="ripple">
+                        <h3>Time zone</h3>
+                        <span class="secondary-text">
+                            Pacific standard time, pst
+                        </span>
+                    </button>
+                </div>
+            </div>
+
+        </div>
+
+        <div id="dialog-date" class="dialog picked" hidden>
+            <h1 class="dialog-title">Date</h1>
+            <div class="dialog-content">
+                <input type="text" name="date" class="text-input" />
+            </div>
+            <div class="dialog-content right-text">
+                <button onclick="Dialog.hideCurrentDialog();" class="button raised bg-blue-500 color-white">Ok</button>
+            </div>
+        </div>
+        <div id="dialog-time" class="dialog picked" hidden>
+            <h1 class="dialog-title">Time</h1>
+            <div class="dialog-content">
+                <input type="text" name="time" class="text-input" />
+            </div>
+            <div class="dialog-content right-text">
+                <button onclick="Dialog.hideCurrentDialog();" class="button raised bg-blue-500 color-white">Ok</button>
+            </div>
+        </div>
+        <div id="dialog-timezone" class="dialog" hidden>
+            <h1 class="dialog-title">Timezone</h1>
+            <div class="dialog-content">
+                <ul class="list">
+                    <li class="padding-v-10">
+                        <span class="checkbox">
+                            <input type="checkbox" id="checkbox-1" />
+                            <label for="checkbox-1"></label>
+                        </span>
+                        <label for="checkbox-1">Pacific Standard Time, UTC−08:00 (PST)</label>
+                    </li>
+                    <li class="padding-v-10">
+                        <span class="checkbox">
+                            <input type="checkbox" id="checkbox-2" />
+                            <label for="checkbox-2"></label>
+                        </span>
+                        <label for="checkbox-2">Mountain Time, UTC−07:00 (MT)</label>
+                    </li>
+                    <li class="padding-v-10">
+                        <span class="checkbox">
+                            <input type="checkbox" id="checkbox-3" />
+                            <label for="checkbox-3"></label>
+                        </span>
+                        <label for="checkbox-3">Central Time, UTC−06:00 (CT)</label>
+                    </li>
+                    <li class="padding-v-10">
+                        <span class="checkbox">
+                            <input type="checkbox" id="checkbox-4" />
+                            <label for="checkbox-4"></label>
+                        </span>
+                        <label for="checkbox-4">Eastern Time, UTC−06:00 (ET)</label>
+                    </li>
+                    <li class="padding-v-10">
+                        <span class="checkbox">
+                            <input type="checkbox" id="checkbox-5" />
+                            <label for="checkbox-5"></label>
+                        </span>
+                        <label for="checkbox-5">Atlantic Standard Time, UTC−04:00 (AST)</label>
+                    </li>
+                    <li class="padding-v-10">
+                        <span class="checkbox">
+                            <input type="checkbox" id="checkbox-6" />
+                            <label for="checkbox-6"></label>
+                        </span>
+                        <label for="checkbox-6">Atlantic Daylight Time, UTC-03:00 (ADT)</label>
+                    </li>
+                    <li class="padding-v-10">
+                        <span class="checkbox">
+                            <input type="checkbox" id="checkbox-7" />
+                            <label for="checkbox-7"></label>
+                        </span>
+                        <label for="checkbox-7">Brasília Summer Time, UTC−02:00 (BRST)</label>
+                    </li>
+                    <li class="padding-v-10">
+                        <span class="checkbox">
+                            <input type="checkbox" id="checkbox-8" />
+                            <label for="checkbox-8"></label>
+                        </span>
+                        <label for="checkbox-8">Eastern Greenland Time, UTC−01:00 (EGT)</label>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="overlay dialog-overlay" onclick="Dialog.hideCurrentDialog();" hidden></div>
+
+        <!-- End content -->
+        <script src="static/js/material.js"></script>
+        <script src="static/js/picker.min.js"></script>
+        <script>
+            window.addEventListener("DOMContentLoaded", function() {
+                var md = new Material();
+            });
+
+            let datePicker = new Picker(document.querySelector('input[name=date]'), {
+                format: 'MMM D, YYYY',
+                text: {
+                    title: 'Pick a date',
+                },
+            });
+
+            let timePicker = new Picker(document.querySelector('input[name=time]'), {
+                format: 'HH:mm',
+                text: {
+                    title: 'Pick a time',
+                },
+            });
+        </script>
+    </body>
+</html>

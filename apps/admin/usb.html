@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Admin Panel | USB drive</title>
+        <link rel="stylesheet" href="static/css/vendor/material.css"/>
+        <link rel="stylesheet" href="static/css/assets/usb.css"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <meta charset="utf-8"/>
+        <script src="static/js/pyxis-api.js"></script>
+        <script>
+            function doPopulate(lib) {
+                let content = "";
+                lib.apps.forEach(app => {
+                    let buttonText, buttonDisabled, onclick;
+                    if (app.installed) {
+                        buttonDisabled = 'disabled';
+                        buttonText = 'Installed';
+                        onclick = 'false';
+                    } else {
+                        buttonDisabled = '';
+                        buttonText = 'Install';
+                        onclick = `pyxis.apps.install('${lib.path}', '${app.name}', '${app.version}');populate()`;
+                    }
+                    content += `<li class="flex"><span><h3>${app.name}</h3>`
+                        + `<span class="secondary-text">Version: ${app.version}</span></span><span>`
+                        + `<button class="button raised bg-blue-500 color-white" ${buttonDisabled} onclick="${onclick}">${buttonText}</button>`
+                        + `</span></li>`;
+                });
+                document.getElementById("apps-list").innerHTML = content;
+            }
+            function populate() {
+                pyxis.apps.getNonLocal().then(doPopulate).catch((e) => console.error(e));
+            }
+        </script>
+    </head>
+    <body onload="populate()">
+        <div class="main-content">
+
+            <div class="title-section">
+                <h1><button onclick="window.location.href='index.html'" class="icon-button" ripple="circle"><i class="icon-keyboard-arrow-left"></i></button> USB drive</h1>
+            </div>
+
+            <div class="navigation-section">
+                <h3>Detected applications</h3>
+                <ul id="apps-list" class="list"></ul>
+                <p class="center-text">
+                    <button class="button raised bg-blue-500 color-white">Eject</button>
+                </p>
+            </div>
+
+        </div>
+        <!-- End content -->
+        <script src="static/js/material.js"></script>
+    </body>
+</html>

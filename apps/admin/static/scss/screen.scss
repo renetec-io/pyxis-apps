@@ -1,0 +1,30 @@
+@import "_base.scss";
+
+.navigation-section {
+    position: relative;
+    top: calc(50% - 8rem);
+    text-align: center;
+
+    .card {
+        padding: 0;
+        margin: 0 auto;
+        width: 12rem;
+
+        @media screen and (min-width: 1080px) and (max-width: 1199px) {
+            width: 400px;
+        }
+
+        @media screen and (min-width: 1200px) {
+            width: 400px;
+        }
+
+        img {
+            width: 100%;
+        }
+    }
+
+    .confirm {
+        margin-top: 1rem;
+        font-size: 1.4em;
+    }
+}

@@ -1,0 +1,22 @@
+@import "_base.scss";
+@import "_list.scss";
+
+.dialog {
+    &:not(.inline)
+    {
+        top: calc(50% - 130px);
+        max-height: calc(80% - 265px);
+
+        @media screen and (min-width: 1200px)
+        {
+            top: calc(50% - 210px);
+            max-height: calc(80% - 425px);
+        }
+
+        @media screen and (min-width: 1200px)
+        {
+            top: calc(50% - 210px);
+            max-height: calc(80% - 425px);
+        }
+    }
+}

@@ -1,0 +1,208 @@
+@import url("../vendor/fonts.css?family=RobotoDraft:400,500,300,300italic,400italic,500italic|Roboto+Slab:400,700&subset=latin,cyrillic-ext,greek-ext,greek,vietnamese,latin-ext,cyrillic");
+* {
+  color: rgba(0, 0, 0, 0.7);
+}
+
+html,
+body {
+  overflow: hidden;
+}
+@media screen and (min-width: 1080px) and (max-width: 1199px) {
+  html,
+body {
+    font-size: 1.5rem;
+  }
+}
+@media screen and (min-width: 1200px) {
+  html,
+body {
+    font-size: 1.5rem;
+  }
+}
+
+.title-section {
+  padding: 0 15px;
+}
+.title-section h1 .icon-button {
+  font-size: 1em;
+}
+
+.navigation-section {
+  padding: 0 30px 30px;
+}
+.navigation-section .card {
+  padding: 0 15px;
+  text-transform: uppercase;
+}
+.navigation-section .card.card-button {
+  padding: 0;
+}
+.navigation-section .card.card-button .button {
+  padding: 0 15px;
+  width: 100%;
+  text-align: left;
+}
+.navigation-section .card + .card {
+  margin-top: 30px;
+}
+.navigation-section .card h3 {
+  margin: 0;
+  padding: 20px 0;
+}
+.navigation-section .card .secondary-text {
+  display: block;
+  padding-bottom: 20px;
+}
+
+.dialog .dialog-content {
+  overflow: initial;
+}
+.dialog .dialog-content .text-input {
+  width: 100%;
+}
+
+.dialog-overlay,
+.picker-opened {
+  background: none;
+}
+
+.checkbox input[type=checkbox] + label,
+.radio input[type=radio] + label {
+  color: #2196f3;
+}
+
+.center-text {
+  text-align: center !important;
+}
+
+.right-text {
+  text-align: right !important;
+}
+
+.justify-text {
+  text-align: justify !important;
+}
+
+.f-1-2 {
+  font-size: 1.2em !important;
+}
+
+.f-1-4 {
+  font-size: 1.4em !important;
+}
+
+.padding-v-10 {
+  padding: 10px 0 !important;
+}
+
+.simple-keyboard.hg-theme-ios .hg-row:nth-child(2) {
+  margin-left: 18px;
+}
+@media screen and (min-width: 1080px) and (max-width: 1199px) {
+  .simple-keyboard.hg-theme-ios .hg-row:nth-child(2) {
+    margin-left: 48px;
+  }
+}
+@media screen and (min-width: 1200px) {
+  .simple-keyboard.hg-theme-ios .hg-row:nth-child(2) {
+    margin-left: 48px;
+  }
+}
+
+.simple-keyboard.hg-theme-ios.hg-theme-default .hg-button {
+  font-size: 1.4rem;
+  height: 60px;
+  min-height: 60px;
+  font-family: monospace;
+}
+
+.simple-keyboard.hg-theme-ios.hg-theme-default .hg-button:active,
+.simple-keyboard.hg-theme-ios.hg-theme-default .hg-button:focus {
+  background: #e4e4e4;
+}
+
+.simple-keyboard.hg-theme-ios.hg-theme-default .hg-button.hg-functionBtn {
+  background-color: #adb5bb;
+  max-width: 20%;
+}
+
+.simple-keyboard.hg-theme-ios.hg-theme-default .hg-button.hg-button-space,
+.simple-keyboard.hg-theme-ios.hg-theme-default .hg-button.hg-button-shift,
+.simple-keyboard.hg-theme-ios.hg-theme-default .hg-button.hg-button-shiftactivated {
+  background-color: #ffffff;
+}
+
+.simple-keyboard.hg-theme-ios.hg-theme-default .hg-button.hg-standardBtn[data-skbtn="@"] {
+  max-width: initial;
+}
+
+.simple-keyboard.hg-theme-ios.hg-theme-default .hg-button-space {
+  min-width: 60%;
+}
+
+.simple-keyboard-wrapper {
+  display: none;
+  width: 100%;
+  bottom: 0;
+  left: 0;
+  position: fixed;
+  z-index: 1003;
+}
+@media screen and (min-width: 1080px) and (max-width: 1199px) {
+  .simple-keyboard-wrapper .simple-keyboard.hg-theme-default .hg-button {
+    height: 100px;
+    font-size: 1.5rem;
+  }
+}
+@media screen and (min-width: 1200px) {
+  .simple-keyboard-wrapper {
+    font-size: 0.8em;
+  }
+  .simple-keyboard-wrapper .simple-keyboard.hg-theme-default .hg-button {
+    height: 100px;
+    font-size: 1.5rem;
+  }
+}
+
+.navigation-section .list li,
+.dialog-content .list li {
+  display: block;
+  padding: 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+  text-transform: uppercase;
+}
+.navigation-section .list li span,
+.dialog-content .list li span {
+  margin: 22px 0;
+}
+.navigation-section .list li span.checkbox,
+.dialog-content .list li span.checkbox {
+  margin: 0;
+}
+.navigation-section .list li button,
+.dialog-content .list li button {
+  width: 100%;
+}
+.navigation-section .list li .item-text,
+.dialog-content .list li .item-text {
+  padding: 0;
+  text-transform: uppercase;
+  text-decoration: none;
+  text-align: initial;
+}
+.navigation-section .list li .secondary-text,
+.dialog-content .list li .secondary-text {
+  margin-bottom: 20px;
+}
+.navigation-section .list .flex,
+.dialog-content .list .flex {
+  display: flex;
+  justify-content: space-between;
+}
+
+.dialog.picked:not(.inline) {
+  top: calc(50% - 125px);
+  max-height: calc(80% - 250px);
+}
+
+/*# sourceMappingURL=dates.css.map */
