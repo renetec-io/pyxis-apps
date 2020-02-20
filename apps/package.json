@@ -1,0 +1,17 @@
+{
+  "name": "admin-app",
+  "version": "1.0.0",
+  "description": "Material design admin app for embedded.",
+  "dependencies": {
+    "material-framework": "git+https://github.com/nt1m/material-framework.git",
+    "node-sass": "^4.13.0",
+    "pickerjs": "^1.2.1",
+    "simple-keyboard": "^2.27.76"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://izhukov1992@bitbucket.org/renetec/apps-and-demos.git"
+  },
+  "author": "Ilya Zhukov",
+  "homepage": "https://bitbucket.org/renetec/apps-and-demos#readme"
+}

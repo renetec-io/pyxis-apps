@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Admin Panel | About</title>
+        <link rel="stylesheet" href="static/css/vendor/material.css"/>
+        <link rel="stylesheet" href="static/css/assets/about.css"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <meta charset="utf-8"/>
+        <script src="static/js/pyxis-api.js"></script>
+        <script src="static/js/update.js"></script>
+        <script>
+          function populate() {
+              document.getElementById("ip").innerText = pyxis.sysinfo.getIP();
+              document.getElementById("hostname").innerText = pyxis.sysinfo.getHostname();
+              document.getElementById("inox-version").innerText = pyxis.sysinfo.getBrowserVersion();
+          }
+        </script>
+    </head>
+    <body onload="populate()">
+        <div class="main-content">
+
+            <div class="title-section">
+                <h1><button onclick="window.location.href='index.html'" class="icon-button" ripple="circle"><i class="icon-keyboard-arrow-left"></i></button> About</h1>
+            </div>
+
+            <div class="navigation-section">
+                <ul class="list">
+                    <li>
+                        <div>
+                            <h3>Your IP</h3>
+                        </div>
+                        <span id="ip" class="secondary-text"></span>
+                    </li>
+                    <li>
+                        <div>
+                            <h3>HOSTNAME</h3>
+                        </div>
+                        <span id="hostname" class="secondary-text"></span>
+                    </li>
+                    <li>
+                        <div>
+                            <h3>BROWSER VERSION</h3>
+                        </div>
+                        <span id="inox-version" class="secondary-text"></span>
+                    </li>
+                    <li>
+                        <div>
+                            <button onclick="Dialog.show(document.querySelector('#dialog-update')); checkForUpdates();" class="button item-text" ripple="ripple">
+                              <h3>System update</h3>
+                            </button>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+        <div id="dialog-update" class="dialog" hidden>
+            <h1 class="dialog-title">Check for updates</h1>
+            <div class="dialog-content">
+                <p id="log"></p>
+            </div>
+            <div class="dialog-content right-text">
+                <button id="updateBtn" onclick="updatePackage();" class="button raised bg-blue-500 color-white" disabled>Update</button>
+            </div>
+        </div>
+        <div class="overlay dialog-overlay" onclick="Dialog.hideCurrentDialog();" hidden></div>
+        <!-- End content -->
+        <script src="static/js/material.js"></script>
+        <script>
+            window.addEventListener("DOMContentLoaded", function() {
+                var md = new Material();
+            });
+        </script>
+    </body>
+</html>

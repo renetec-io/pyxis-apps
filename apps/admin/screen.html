@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Admin Panel | Screen Orientation</title>
+        <link rel="stylesheet" href="static/css/vendor/material.css"/>
+        <link rel="stylesheet" href="static/css/assets/screen.css"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <meta charset="utf-8"/>
+        <script src="static/js/pyxis-api.js"></script>
+        <script src="static/js/screen.js"></script>
+    </head>
+    <body>
+        <div class="main-content">
+
+            <div class="navigation-section">
+                <div class="card">
+                    <button onclick="rotateScreen()" class="button item-text" ripple="circle">
+                        <img src="static/images/icon-screen-rotation.png" alt="" />
+                    </button>
+                </div>
+                <div class="confirm">
+                    <button onclick="applyScreenRotation();" class="button raised bg-blue-500 color-white">Ok</button>
+                </div>
+            </div>
+
+        </div>
+        <!-- End content -->
+        <script src="static/js/material.js"></script>
+    </body>
+</html>
