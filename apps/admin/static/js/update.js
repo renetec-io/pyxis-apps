@@ -27,18 +27,18 @@ function proceeedUpdateCheckCallback(text) {
 
     if (text.includes("Installed")) {
         installedVersion = text.split(":")[1];
-        document.getElementById("log").innerHTML += "Installed version" + installedVersion + "</br>";
+        document.getElementById("log").innerHTML += "Installed version" + installedVersion + "<br>";
         //document.getElementById("progress").value += 10;
     } else if (text.includes("Candidate")) {
         candidateVersion = text.split(":")[1];
-        document.getElementById("log").innerHTML += "Candidate version" + candidateVersion + "</br>";
+        document.getElementById("log").innerHTML += "Candidate version" + candidateVersion + "<br>";
         //document.getElementById("progress").value += 10;
         compareResult = compareVersion(installedVersion, candidateVersion);
         if (compareResult == 0) {
-            document.getElementById("log").innerHTML += "The latest version is already installed" + "</br>";
+            document.getElementById("log").innerHTML += "The latest version is already installed" + "<br>";
             //document.getElementById("progress").value = 100;
         } else if (compareResult == -1) {
-            document.getElementById("log").innerHTML += "New version" + candidateVersion + " is available" + "</br>";
+            document.getElementById("log").innerHTML += "New version" + candidateVersion + " is available" + "<br>";
             //document.getElementById("progress").value = 100;
             allowUpdate = true;
             document.getElementById("updateBtn").disabled = false;
@@ -58,17 +58,17 @@ function proceedUpdateCheck() {
 function checkForUpdatesCallback(text) {
     if (text.includes("Hit:1")) {
         //document.getElementById("progress").value += 10;
-        document.getElementById("log").innerHTML += "Received data from server" + "</br>";
+        document.getElementById("log").innerHTML += "Received data from server" + "<br>";
     } else if (text.includes("Reading package lists...")) {
         //document.getElementById("progress").value += 10;
-        document.getElementById("log").innerHTML += "Checked package list" + "</br>";
+        document.getElementById("log").innerHTML += "Checked package list" + "<br>";
         /* It looks like everything is ok, we can go further! */
         pyxis.fifo.close("system_response");
         proceedUpdateCheck();
     }
     /* Error branch */
     else if (text.includes("Err:")) {
-        document.getElementById("log").innerHTML += "Cannot receive data from server" + "</br>";
+        document.getElementById("log").innerHTML += "Cannot receive data from server" + "<br>";
         //document.getElementById("progress") = 0;
         pyxis.fifo.close("system_response");
         allowUpdate = false;
@@ -106,12 +106,12 @@ function updatePackageCallback(text) {
     }
     if (text.includes("Setting up")) {
         //document.getElementById("progress").value = 100;
-        document.getElementById("log").innerHTML += "Installation complete, restart Inox" + "</br>";
+        document.getElementById("log").innerHTML += "Installation complete, restart Inox" + "<br>";
         pyxis.fifo.write("system_commands", "/opt/inox/inox-restart\n");
     } else
         /* Error branch */
     if (text.includes("Err:")) {
-        document.getElementById("log").innerHTML += "Something went wrong:(" + "</br>" ;
+        document.getElementById("log").innerHTML += "Something went wrong:(" + "<br>" ;
         //document.getElementById("progress") = 0;
         pyxis.fifo.close("system_response");
     }
@@ -122,9 +122,8 @@ function updatePackage() {
     const APT_COMMAND = "sudo apt-get -y install inox\n";
     /* Do not allow to push button multiple times, it can break everything */
     document.getElementById("updateBtn").disabled = true;
-    document.getElementById("log").innerHTML = "UPDATE IN PROGRESS, DO NOT TOUCH!!!";
+    document.getElementById("log").innerHTML = "UPDATE IN PROGRESS!<br>It may take a while.<br>Please, do not touch!";
     pyxis.fifo.openRead("system_response", updatePackageCallback);
     pyxis.fifo.openWrite("system_commands");
-    pyxis.fifo.write("system_commands", );
-    //document.getElementById("progress").value = 0;
+    pyxis.fifo.write("system_commands", APT_COMMAND);
 }

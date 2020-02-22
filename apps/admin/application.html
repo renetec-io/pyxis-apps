@@ -25,7 +25,7 @@
             function runApp() {
                 updateDefault();
                 if (typeof appToRun !== 'undefined') {
-                    window.location.href = `file://${appToRun.libPath}${appToRun.path}/index.html`;
+                    window.location.href = `file://${appToRun.libPath}/${appToRun.path}/index.html`;
                 } else {
                     window.location.href = 'index.html';
                 }

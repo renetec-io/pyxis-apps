@@ -10,7 +10,7 @@ function localAppByTag(lib, tag) {
     for (i in lib.apps) {
         let app = lib.apps[i];
         if (pyxis.apps.tag(app) === tag) {
-            app.libPath = `/home/pi/.inox/apps/`;
+            app.libPath = lib.path;
             app.default = isDefault;
             return app;
         }
@@ -34,9 +34,9 @@ function localAppByTag(lib, tag) {
     return undefined;
 }
 
-function appByTag(json, tag) {
+function appByTag(json, args) {
     let lib = JSON.parse(json);
-    return localAppByTag(lib, tag[0]);
+    return localAppByTag(lib, args[0]);
 }
 
 function defaultApp(json) {
@@ -97,7 +97,7 @@ if (typeof(pyxis) == "undefined") {
         },
         getByTag(tag) {
             return new Promise((resolve) => {
-                resolve(appByTag(dump, tag));
+                resolve(appByTag(dump, [tag]));
             })
         }
     };

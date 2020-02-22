@@ -17,7 +17,8 @@ function rotateScreen() {
             currentRotation = 'normal';
             break;
         default:
-            console.error("unknown screen orientation");
+            console.warn("unknown screen orientation");
+            currentRotation = 'right'; // assume normal
     }
 
     switch (currentRotationDeg) {
