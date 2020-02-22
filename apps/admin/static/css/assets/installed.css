@@ -1,3 +1,4 @@
+@import url("../vendor/fonts.css?family=RobotoDraft:400,500,300,300italic,400italic,500italic|Roboto+Slab:400,700&subset=latin,cyrillic-ext,greek-ext,greek,vietnamese,latin-ext,cyrillic");
 * {
   color: rgba(0, 0, 0, 0.7);
 }

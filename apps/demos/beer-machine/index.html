@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>BeerMachine</title>
+    <link href="css/styles.css" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+<div class="container">
+    <div class="topbar filter">
+        <div class="filter__item allbeers active" kind-of-beer-filter="all">All beers</div>
+        <div class="filter__item lager" kind-of-beer-filter="lager">Lager</div>
+        <div class="filter__item porter" kind-of-beer-filter="porter">Porter</div>
+        <div class="filter__item stout" kind-of-beer-filter="stout">Stout</div>
+        <div class="filter__item bock" kind-of-beer-filter="bock">Bock</div>
+    </div>
+
+    <div class="content beers-list">
+        <div class="beers-list__item js-click-modal" kind-of-beer="lager">
+            <div class="beer-image"><img src="images/lager1.png"></div>
+            <div class="beer-info">
+                <h3>Camden Beer 2018 Barrel Aged Imperial Pilsner</h3>
+                <span class="ribbon">LAGER</span>
+                <div class="beer-param alco">10% <small>VOL</small></div>
+                <div class="beer-param size">500 ml</div>
+                <div class="beer-price">$7.99</div>
+            </div>
+            <div class="beer-text">
+                'Helles' means 'light-coloured', and Augustiner Helles lives up to its name. Pale gold, bright and
+                effervescent, it's a fantastic example of a pale German lager. Breadiness and light malts are balanced
+                by just a touch of hop bitterness, making this refreshing lager from Munich's oldest independent brewery
+                crisp, clean and eminently quaffable.
+                'Helles' means 'light-coloured', and Augustiner Helles lives up to its name. Pale gold, bright and
+                effervescent, it's a fantastic example of a pale German lager. Breadiness and light malts are balanced
+                by just a touch of hop bitterness, making this refreshing lager from Munich's oldest independent brewery
+                crisp, clean and eminently quaffable.
+            </div>
+        </div>
+
+        <div class="beers-list__item js-click-modal" kind-of-beer="porter">
+            <div class="beer-image"><img src="images/lager2.png"></div>
+            <div class="beer-info">
+                <h3>Stewart Franz Craft Lager </h3>
+                <span class="ribbon">PORTER</span>
+                <div class="beer-param alco">4% <small>VOL</small></div>
+                <div class="beer-param size">330 ml</div>
+                <div class="beer-price">$2.39</div>
+            </div>
+            <div class="beer-text">
+                'Helles' means 'light-coloured', and Augustiner Helles lives up to its name. Pale gold, bright and
+                effervescent, it's a fantastic example of a pale German lager. Breadiness and light malts are balanced
+                by just a touch of hop bitterness, making this refreshing lager from Munich's oldest independent brewery
+                crisp, clean and eminently quaffable.
+                'Helles' means 'light-coloured', and Augustiner Helles lives up to its name. Pale gold, bright and
+                effervescent, it's a fantastic example of a pale German lager. Breadiness and light malts are balanced
+                by just a touch of hop bitterness, making this refreshing lager from Munich's oldest independent brewery
+                crisp, clean and eminently quaffable.
+            </div>
+        </div>
+
+        <div class="beers-list__item js-click-modal" kind-of-beer="stout">
+            <div class="beer-image"><img src="images/lager3.png"></div>
+            <div class="beer-info">
+                <h3>Weird Beard Kill Pils</h3>
+                <span class="ribbon">STOUT</span>
+                <div class="beer-param alco">5% <small>VOL</small></div>
+                <div class="beer-param size">330 ml</div>
+                <div class="beer-price">$2.99</div>
+            </div>
+            <div class="beer-text">
+                'Helles' means 'light-coloured', and Augustiner Helles lives up to its name. Pale gold, bright and
+                effervescent, it's a fantastic example of a pale German lager. Breadiness and light malts are balanced
+                by just a touch of hop bitterness, making this refreshing lager from Munich's oldest independent brewery
+                crisp, clean and eminently quaffable.
+                'Helles' means 'light-coloured', and Augustiner Helles lives up to its name. Pale gold, bright and
+                effervescent, it's a fantastic example of a pale German lager. Breadiness and light malts are balanced
+                by just a touch of hop bitterness, making this refreshing lager from Munich's oldest independent brewery
+                crisp, clean and eminently quaffable.
+            </div>
+        </div>
+
+        <div class="beers-list__item js-click-modal" kind-of-beer="bock">
+            <div class="beer-image"><img src="images/lager4.png"></div>
+            <div class="beer-info">
+                <h3>Moor Pils</h3>
+                <span class="ribbon">BOCK</span>
+                <div class="beer-param alco">5.2% <small>VOL</small></div>
+                <div class="beer-param size">330 ml</div>
+                <div class="beer-price">$2.79</div>
+            </div>
+            <div class="beer-text">
+                'Helles' means 'light-coloured', and Augustiner Helles lives up to its name. Pale gold, bright and
+                effervescent, it's a fantastic example of a pale German lager. Breadiness and light malts are balanced
+                by just a touch of hop bitterness, making this refreshing lager from Munich's oldest independent brewery
+                crisp, clean and eminently quaffable.
+                'Helles' means 'light-coloured', and Augustiner Helles lives up to its name. Pale gold, bright and
+                effervescent, it's a fantastic example of a pale German lager. Breadiness and light malts are balanced
+                by just a touch of hop bitterness, making this refreshing lager from Munich's oldest independent brewery
+                crisp, clean and eminently quaffable.
+            </div>
+        </div>
+
+        <div class="beers-list__item js-click-modal" kind-of-beer="lager">
+            <div class="beer-image"><img src="images/lager5.png"></div>
+            <div class="beer-info">
+                <h3>Founders Trigo </h3>
+                <span class="ribbon">LAGER</span>
+                <div class="beer-param alco">6.3% <small>VOL</small></div>
+                <div class="beer-param size">355 ml</div>
+                <div class="beer-price">$2.99</div>
+            </div>
+            <div class="beer-text">
+                'Helles' means 'light-coloured', and Augustiner Helles lives up to its name. Pale gold, bright and
+                effervescent, it's a fantastic example of a pale German lager. Breadiness and light malts are balanced
+                by just a touch of hop bitterness, making this refreshing lager from Munich's oldest independent brewery
+                crisp, clean and eminently quaffable.
+                'Helles' means 'light-coloured', and Augustiner Helles lives up to its name. Pale gold, bright and
+                effervescent, it's a fantastic example of a pale German lager. Breadiness and light malts are balanced
+                by just a touch of hop bitterness, making this refreshing lager from Munich's oldest independent brewery
+                crisp, clean and eminently quaffable.
+            </div>
+        </div>
+
+        <div class="beers-list__item js-click-modal" kind-of-beer="porter">
+            <div class="beer-image"><img src="images/lager6.png"></div>
+            <div class="beer-info">
+                <h3>Founders Trigo </h3>
+                <span class="ribbon">PORTER</span>
+                <div class="beer-param alco">4.4% <small>VOL</small></div>
+                <div class="beer-param size">330 ml</div>
+                <div class="beer-price">$2.29</div>
+            </div>
+            <div class="beer-text">
+                'Helles' means 'light-coloured', and Augustiner Helles lives up to its name. Pale gold, bright and
+                effervescent, it's a fantastic example of a pale German lager. Breadiness and light malts are balanced
+                by just a touch of hop bitterness, making this refreshing lager from Munich's oldest independent brewery
+                crisp, clean and eminently quaffable.
+                'Helles' means 'light-coloured', and Augustiner Helles lives up to its name. Pale gold, bright and
+                effervescent, it's a fantastic example of a pale German lager. Breadiness and light malts are balanced
+                by just a touch of hop bitterness, making this refreshing lager from Munich's oldest independent brewery
+                crisp, clean and eminently quaffable.
+            </div>
+        </div>
+
+        <div class="beers-list__item js-click-modal" kind-of-beer="stout">
+            <div class="beer-image"><img src="images/lager7.png"></div>
+            <div class="beer-info">
+                <h3>Stiegl Radler Grapefruit</h3>
+                <span class="ribbon">STOUT</span>
+                <div class="beer-param alco">2% <small>VOL</small></div>
+                <div class="beer-param size">500 ml</div>
+                <div class="beer-price">$2.09</div>
+            </div>
+            <div class="beer-text">
+                'Helles' means 'light-coloured', and Augustiner Helles lives up to its name. Pale gold, bright and
+                effervescent, it's a fantastic example of a pale German lager. Breadiness and light malts are balanced
+                by just a touch of hop bitterness, making this refreshing lager from Munich's oldest independent brewery
+                crisp, clean and eminently quaffable.
+                'Helles' means 'light-coloured', and Augustiner Helles lives up to its name. Pale gold, bright and
+                effervescent, it's a fantastic example of a pale German lager. Breadiness and light malts are balanced
+                by just a touch of hop bitterness, making this refreshing lager from Munich's oldest independent brewery
+                crisp, clean and eminently quaffable.
+            </div>
+        </div>
+
+        <div class="beers-list__item js-click-modal" kind-of-beer="bock">
+            <div class="beer-image"><img src="images/lager8.png"></div>
+            <div class="beer-info">
+                <h3>Behemoth Hopped Up on Pils</h3>
+                <span class="ribbon">BOCK</span>
+                <div class="beer-param alco">5% <small>VOL</small></div>
+                <div class="beer-param size">330 ml</div>
+                <div class="beer-price">$3.79</div>
+            </div>
+            <div class="beer-text">
+                'Helles' means 'light-coloured', and Augustiner Helles lives up to its name. Pale gold, bright and
+                effervescent, it's a fantastic example of a pale German lager. Breadiness and light malts are balanced
+                by just a touch of hop bitterness, making this refreshing lager from Munich's oldest independent brewery
+                crisp, clean and eminently quaffable.
+                'Helles' means 'light-coloured', and Augustiner Helles lives up to its name. Pale gold, bright and
+                effervescent, it's a fantastic example of a pale German lager. Breadiness and light malts are balanced
+                by just a touch of hop bitterness, making this refreshing lager from Munich's oldest independent brewery
+                crisp, clean and eminently quaffable.
+            </div>
+        </div>
+
+        <div class="beers-list__item js-click-modal" kind-of-beer="lager">
+            <div class="beer-image"><img src="images/lager4.png"></div>
+            <div class="beer-info">
+                <h3>Moor Pils</h3>
+                <span class="ribbon">LAGER</span>
+                <div class="beer-param alco">5.2% <small>VOL</small></div>
+                <div class="beer-param size">330 ml</div>
+                <div class="beer-price">$2.79</div>
+            </div>
+            <div class="beer-text">
+                'Helles' means 'light-coloured', and Augustiner Helles lives up to its name. Pale gold, bright and
+                effervescent, it's a fantastic example of a pale German lager. Breadiness and light malts are balanced
+                by just a touch of hop bitterness, making this refreshing lager from Munich's oldest independent brewery
+                crisp, clean and eminently quaffable.
+                'Helles' means 'light-coloured', and Augustiner Helles lives up to its name. Pale gold, bright and
+                effervescent, it's a fantastic example of a pale German lager. Breadiness and light malts are balanced
+                by just a touch of hop bitterness, making this refreshing lager from Munich's oldest independent brewery
+                crisp, clean and eminently quaffable.
+            </div>
+        </div>
+
+        <div class="beers-list__item js-click-modal" kind-of-beer="stout">
+            <div class="beer-image"><img src="images/lager2.png"></div>
+            <div class="beer-info">
+                <h3>Stewart Franz Craft Lager </h3>
+                <span class="ribbon">STOUT</span>
+                <div class="beer-param alco">4% <small>VOL</small></div>
+                <div class="beer-param size">330 ml</div>
+                <div class="beer-price">$2.39</div>
+            </div>
+            <div class="beer-text">
+                10 'Helles' means 'light-coloured', and Augustiner Helles lives up to its name. Pale gold, bright and
+                effervescent, it's a fantastic example of a pale German lager. Breadiness and light malts are balanced
+                by just a touch of hop bitterness, making this refreshing lager from Munich's oldest independent brewery
+                crisp, clean and eminently quaffable.
+                'Helles' means 'light-coloured', and Augustiner Helles lives up to its name. Pale gold, bright and
+                effervescent, it's a fantastic example of a pale German lager. Breadiness and light malts are balanced
+                by just a touch of hop bitterness, making this refreshing lager from Munich's oldest independent brewery
+                crisp, clean and eminently quaffable.
+            </div>
+        </div>
+
+    </div>
+
+    <div class="modal">
+        <div class="header"><a class="btn js-close-modal"><span class="back">&#8249;</span> Other beers</a>
+        </div>
+        <div class="body">
+            <div class="body-flex">
+                <div class="beer-page-l">
+                    <h2>FDB Art of Beer «Maurits Escher»</h2>
+
+
+                </div>
+                <div class="beer-page-r">
+                    <div class="beer-price"></div>
+                    <br>
+                    <div class="button buy" id="buy-button">BUY</div>
+
+                </div>
+                <div class="params">
+                    <div class="beer-param alco"></div>
+                    <div class="beer-param size"></div>
+                </div>
+            </div>
+
+            <div class="beer-image">
+                <span class="ribbon"></span>
+                <img src="images/lager8.png">
+            </div>
+
+            <div class="beer-text-container">
+                <div class="beer-text">
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+</div>
+
+<div class="modal-buy">
+    <div class="modal-content">
+        Thank You! <br>
+        Drink beer wisely!
+        <div class="button ok">Ok</div>
+    </div>
+</div>
+
+<script src="js/jquery-3.3.1.min.js"></script>
+
+<script type="text/javascript">
+    function checkEndOfScroll() {
+        var container = $('.container')[0];
+        if (container.scrollHeight - container.scrollTop - container.clientHeight < 1) {
+            $('body').addClass('endofscroll');
+        } else {
+            $('body').removeClass('endofscroll');
+        }
+    }
+
+    $(".filter__item").click(function (event) {
+        var kind_of_beer = $(this).attr('kind-of-beer-filter');
+        console.log(kind_of_beer);
+        $(this).addClass("active");
+        $(".filter__item").not(this).removeClass("active");
+
+        if ($(this).attr('kind-of-beer-filter') == "all") {
+            $('.beers-list__item ').show();
+        } else {
+            $('.beers-list__item ').hide();
+            $('[kind-of-beer = "' + kind_of_beer + '"]').show();
+        }
+
+        if ($(this).hasClass("allbeers")) {
+            $(".beer-info .ribbon").show();
+        } else {
+            $(".beer-info .ribbon").hide();
+        }
+
+        checkEndOfScroll();
+    });
+
+    $('.js-click-modal').click(function () {
+        $('.container').addClass('modal-open');
+        // подстановка контента в окошко
+        $('.modal h2').html($(this).find('h3').html());
+        $('.modal .beer-price').html($(this).find('.beer-price').html());
+        $('.modal .alco').html($(this).find('.alco').html());
+        $('.modal .size').html($(this).find('.size').html());
+        $('.modal .beer-text').html($(this).find('.beer-text').html());
+        $('.modal .ribbon').html($(this).find('.ribbon').html());
+        $('.modal .beer-image img').attr('src', $(this).find('.beer-image img').attr('src'));
+
+    });
+    $('.js-close-modal').click(function () {
+        $('.container').removeClass('modal-open');
+    });
+
+    $('.container').scroll(function () {
+        checkEndOfScroll();
+    });
+
+    $('.modal #buy-button').click(function () {
+        $('.modal-buy').addClass('modal-opened');
+        console.log("aa");
+    });
+
+    $(".ok").click(function (event) {
+        $(this).parent().parent().removeClass("modal-opened");
+    });
+
+</script>
+</body>
+</html>
