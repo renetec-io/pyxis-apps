@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Toaster</title>
+    <link href="css/styles.css" rel="stylesheet">
+    <link href="css/styles_portrait.css" rel="stylesheet">
+    <link href="css/styles_landscape.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+<div class="preload-imgs">
+    <img src="images/ico-toast-1.svg">
+    <img src="images/ico-toast-2.svg">
+    <img src="images/ico-toast-3.svg">
+    <img src="images/ico-toast-4.svg">
+    <img src="images/ico-toast-5.svg">
+</div>
+
+<div class="container portrait">
+    <div class="top-side">
+        <div class="button defrost">
+            <img src="images/ico-defrost.svg">
+            <span class="button-label">DEFROST</span>
+        </div>
+        <div class="button toast">
+            <img src="images/ico-toast.svg">
+            <span class="button-label">TOAST</span>
+        </div>
+        <div class="button bagel">
+            <img src="images/ico-bagel.svg">
+            <span class="button-label">BAGEL</span>
+        </div>
+    </div>
+
+    <div class="center-side stopped">
+        <div class="timer">00:00</div>
+        <div class="button cancel">
+            <img src="images/ico-stop.svg">
+            <span class="button-label">CANCEL</span>
+        </div>
+    </div>
+
+    <div class="bottom-side">
+        <div class="toast-peach toast-peach1">
+            <span class="button-label">TOAST PEACH</span>
+        </div>
+        <div class="type-range">
+            <input type="range" orient="vertical" value="1" min="1" max="5" class="level" />
+        </div>
+    </div>
+
+    <div class="popup-overlay done ok">
+        <div class="popup">
+            <p>Your toast is ready. Enjoy!</p>
+        </div>
+    </div>
+</div>
+
+<div class="container landscape">
+    <div class="left-side">
+        <div class="button defrost">
+            <img src="images/ico-defrost.svg">
+            <span class="button-label">DEFROST</span>
+        </div>
+        <div class="button keep-warm">
+            <img src="images/ico-keepwarm.svg">
+            <span class="button-label">KEEP WARM</span>
+        </div>
+        <div class="button bagel">
+            <img src="images/ico-bagel.svg">
+            <span class="button-label">BAGEL</span>
+        </div>
+    </div>
+
+    <div class="center-side stopped">
+        <div class="timer">00:00</div>
+        <div class="button cancel">
+            <img src="images/ico-stop.svg">
+            <span class="button-label">CANCEL</span>
+        </div>
+    </div>
+
+    <div class="right-side">
+        <div class="toast-peach toast-peach1">
+            
+        </div>
+        <div class="type-range">
+            <input type="range" orient="vertical" value="1" min="1" max="5" class="level" />
+        </div>
+        <span class="button-label">TOAST PEACH</span>
+    </div>
+
+    <div class="popup-overlay done ok">
+        <div class="popup">
+            <p>Your toast is ready. Enjoy!</p>
+        </div>
+    </div>
+</div>
+
+<script src="js/jquery-3.3.1.min.js"></script>
+<script type="text/javascript">
+	/*mode-dependent toast times in milliseconds
+  each peach level adds one minute to the toast time */
+	var bagel = 120000;  // 2 mins
+    var defrost = 240000; // 4 mins
+    var warm = 90000; // 1.5 mins
+
+    //countdown instance
+    var interval;
+
+    //show text on done. The time after which the inscription is hidden is set in the parameter delay()
+    var is_done = function () {
+        $(".done").addClass("showed").delay(60000).queue(function () {
+            $(this).removeClass("showed");
+            $(this).dequeue();
+            $(".timer").removeClass("hidden");
+        });
+        playAudioDone();
+        $(".timer").addClass("hidden");
+    };
+
+    //functions updates UI to canceled; stops countdown function
+    var update_ui_canceled = function () {
+        $(".button.cancel").parent().addClass("stopped");
+        $(".top-side .button").removeClass("active");
+        clearInterval(interval);
+        $(".timer").html("00:00");
+        $('.level').removeAttr('disabled', 'disabled');
+        $(".toast-peach").removeClass("disabled");
+    };
+
+    //functions updates UI to stopped
+    var update_ui_stopped = function () {
+        update_ui_canceled();
+        is_done();
+    };
+
+
+    //format time strings to "mm:ss" and set to timer
+    var format_and_set_time = function (minutes, seconds) {
+        minutes_st = (minutes < 10) ? '0' + minutes : minutes;
+        seconds_st = (seconds < 10) ? '0' + seconds : seconds;
+        $(".timer").html(minutes_st + ":" + seconds_st);
+    }
+
+    // Audio init
+    function playAudioDone() {
+        var doneaudio = new Audio;
+        doneaudio.preload = 'auto';
+        doneaudio.src = "sounds/done.mp3";
+        doneaudio.play();
+    }
+
+    //onclick listener for Cancel button
+    $(".button.cancel").click(update_ui_canceled);
+
+    $(".top-side .button, .left-side .button").click(function (event) {
+        //reset counter, so we don't have multiple instances running at the same time
+        clearInterval(interval);
+        $(this).addClass("active");
+        $(".top-side .button, .left-side .button").not(this).removeClass("active");
+        $(".center-side").removeClass("stopped");
+        $('.level').attr('disabled', 'disabled');
+        $(".toast-peach").addClass("disabled");
+
+        peach_level = ($(".level").val()) * 60000;
+        if ($(this).hasClass("bagel")) {
+            toast_time = bagel + peach_level;
+        } else if ($(this).hasClass("defrost")) {
+            toast_time = defrost + peach_level;
+        } else
+            toast_time = warm + peach_level;
+
+        minutes = Math.floor((toast_time / (1000 * 60)) % 60);
+        seconds = Math.floor((toast_time / 1000) % 60);
+        format_and_set_time(minutes, seconds);
+
+        //countdown
+        interval = setInterval(function () {
+            --seconds;
+            minutes = (seconds < 0) ? --minutes : minutes;
+            seconds = (seconds < 0) ? 59 : seconds;
+
+            //check if we ran out of time and update UI
+            if (minutes == 0 && seconds == 0) {
+                update_ui_stopped();
+            }
+
+            format_and_set_time(minutes, seconds);
+
+        }, 1000);
+    });
+
+    $(".ok").click(function (event) {
+        $(this).removeClass("showed");
+        $(".timer").removeClass("hidden");
+    });
+
+    $(".level").change(function (event) {
+        var peach_level = $(this).val();
+        $('.level').val(peach_level);
+        $(".toast-peach").removeClass().addClass('toast-peach toast-peach' + peach_level);
+    });
+</script>
+</body>
+</html>

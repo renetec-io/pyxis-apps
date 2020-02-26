@@ -1,0 +1,218 @@
+@media screen and (orientation: portrait) {
+.container {
+  background: url("../images/toaster_bg.png");
+  background-size: cover;
+  flex-direction: column;
+}
+
+.landscape {
+  display: none;
+}
+
+.portrait {
+  display: inline-flex;
+}
+
+.top-side {
+  display: inline-flex;
+  flex-direction: row;
+  justify-content: space-around;
+  width: 90%;
+  margin-top: 10%;
+}
+
+.button {
+  position: relative;
+}
+
+.top-side .button-label {
+  position: absolute;
+  left: 0;
+  bottom: 20px;
+}
+
+.top-side .button:last-child {
+  margin-bottom: 0;
+}
+
+.bottom-side {
+  width: 80%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.type-range {
+  height: 140px;
+  width: 70%;
+}
+
+.toast-peach {
+  margin-bottom: 100px;
+  width: 30%;
+}
+
+.toast-peach .button-label {
+  position: absolute;
+  bottom: -50px;
+  display: block;
+  width: 100%;
+}
+
+/*customised range*/ 
+input[type=range] {
+  -webkit-appearance: none;
+  height: 3px;
+  width: 100%;
+  border: none !important;
+  background-color: #4F4F4F !important;
+  position: relative;
+  top: 70px;
+}
+
+input[type=range]:disabled {
+  opacity: 0.4;
+}
+
+.toast-peach.disabled {
+  opacity: 0.4;
+}
+
+@media screen and (max-width: 599px) {
+.bottom-side {
+  width: 90%;
+}
+
+.top-side {
+  margin-top: 2%;
+}
+
+.top-side .button-label {
+  bottom: 5px;
+}
+
+.button {
+  width: 125px;
+  height: 125px;
+  margin-bottom: 0;
+}
+
+.button-label {
+  font-size: 14px;
+}
+
+.timer {
+  font-size: 5rem;
+}
+
+.toast-peach {
+  height: 75px;
+  top: -30px;
+  margin-bottom: 0;
+}
+
+.toast-peach .button-label {
+  bottom: -25px;
+}
+
+.type-range {
+  height: 100px;
+}
+
+input[type=range] {
+  top: 20px;
+}
+} /*@media screen and (max-width: 599px)*/
+
+@media screen and (min-width: 600px) {
+.bottom-side {
+  width: 90%;
+}
+
+.top-side {
+  margin-top: 2%;
+}
+
+.top-side .button-label {
+  bottom: 10px;
+}
+
+.button {
+  width: 150px;
+  height: 150px;
+  margin-bottom: 0;
+}
+
+.button-label {
+  font-size: 18px;
+}
+
+.timer {
+  font-size: 5rem;
+}
+
+.toast-peach {
+  height: 75px;
+  top: -30px;
+  margin-bottom: 0;
+}
+
+.toast-peach .button-label {
+  bottom: -25px;
+}
+
+.type-range {
+  height: 100px;
+}
+
+input[type=range] {
+  top: 20px;
+}
+} /*@media screen and (min-width: 600px)*/
+
+@media screen and (min-width: 1024px) {
+.button {
+  width: 150px;
+  height: 150px;
+}
+
+.button-label {
+  font-size: 24px;
+}
+
+.toast-peach .button-label {
+  bottom: -35px;
+}
+} /*@media screen and (min-width: 1024px)*/
+
+@media screen and (min-width: 1080px) {
+.button {
+  width: 300px;
+  height: 300px;
+}
+
+.button-label {
+  font-size: 36px;
+}
+
+.toast-peach {
+  height: 180px;
+  width: 35%;
+}
+
+.toast-peach .button-label {
+  bottom: -60px;
+}
+
+.timer {
+  font-size: 12rem;
+}
+} /*@media screen and (min-width: 1080px)*/
+
+@media screen and (min-width: 1920px) {
+.bottom-side {
+  position: relative;
+  top: -40px;
+}
+} /*@media screen and (min-width: 1920px)*/
+} /*@media screen and (orientation: portrait)*/

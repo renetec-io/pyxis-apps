@@ -1,13 +1,30 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Admin Panel | Demo Applications</title>
+        <title>Settings | Demo Applications</title>
         <link rel="stylesheet" href="static/css/vendor/material.css"/>
         <link rel="stylesheet" href="static/css/assets/demo.css"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
         <meta charset="utf-8"/>
+        <script src="static/js/pyxis-api.js"></script>
+        <script>
+            function openApp(tag) {
+                window.location.href = `application.html?tag=${tag}`;
+            }
+            function doPopulate(lib) {
+                let content = "";
+                lib.apps.forEach(app => {
+                    let tag = pyxis.apps.tag(app);
+                    content += `<li class="flex"><button class="button item-text" ripple="ripple" onclick="openApp('${tag}')"><h3>${app.name}</h3><span class="secondary-text">Version: ${app.version}</span></button></li>`;
+                });
+                document.getElementById("apps-list").innerHTML = content;
+            }
+            function populate() {
+                pyxis.apps.getDemos().then(doPopulate).catch((e) => console.error(e));
+            }
+        </script>
     </head>
-    <body>
+    <body onload="populate()">
         <div class="main-content">
 
             <div class="title-section">
@@ -15,19 +32,7 @@
             </div>
 
             <div class="navigation-section">
-                <ul class="list">
-                    <li>
-                        <h3>Toaster</h3>
-                    </li>
-                    <li>
-                        <h3>Air quality station</h3>
-                    </li>
-                    <li>
-                        <h3>Washing Machine UI</h3>
-                    </li>
-                    <li>
-                        <h3>Security Camera</h3>
-                    </li>
+                <ul id="apps-list" class="list">
                 </ul>
             </div>
 
