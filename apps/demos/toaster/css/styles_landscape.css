@@ -1,0 +1,165 @@
+@media screen and (orientation: landscape) {
+.container {
+  background: url("../images/toaster-bg.png");
+  background-size: cover;
+  flex-direction: row;
+}
+
+.landscape {
+  display: inline-flex;
+}
+
+.portrait {
+  display: none;
+}
+
+.left-side .button:last-child {
+  margin-bottom: 0;
+}
+
+.right-side {
+  width: 280px;
+}
+
+.type-range {
+  height: 700px;
+  overflow: hidden;
+}
+
+/*customised range*/ 
+input[type=range] {
+  -webkit-appearance: none;
+  transform: rotate(-90deg);
+  height: 3px;
+  width: 580px;
+  border: none !important;
+  background-color: #4F4F4F !important;
+  position: relative;
+  top: 350px;
+  left: -152px;
+}
+
+@media screen and (max-width: 1023px) {
+.button {
+  width: 125px;
+  height: 125px;
+  margin-bottom: 20px;
+}
+
+.left-side .button-label {
+  position: absolute;
+  bottom: 12px;
+}
+
+.button-label {
+  font-size: 12px;
+}
+
+.toast-peach {
+  margin-bottom: 0;
+}
+
+.timer {
+  font-size: 4rem;
+}
+
+.right-side {
+  width: 125px;
+}
+
+.toast-peach {
+  height: 70px;
+}
+
+.type-range {
+  height: 315px;
+}
+
+input[type=range] {
+  left: -52px;
+  top: 165px;
+  width: 230px;
+}
+} /*@media screen and (max-width: 1023px)*/
+
+@media screen and (min-width: 1024px) {
+.button {
+  width: 150px;
+  height: 150px;
+  margin-bottom: 20px;
+}
+
+.left-side .button-label {
+  position: absolute;
+  bottom: 14px;
+}
+
+.button-label {
+  font-size: 14px;
+}
+
+.toast-peach {
+  margin-bottom: 0;
+}
+
+.timer {
+  font-size: 5rem;
+}
+
+.right-side {
+  width: 150px;
+}
+
+.toast-peach {
+  height: 80px;
+}
+
+.type-range {
+  height: 380px;
+}
+
+input[type=range] {
+  left: -73px;
+  top: 195px;
+  width: 290px;
+}
+} /*@media screen and (min-width: 1024px)*/
+
+@media screen and (min-width: 1920px) {
+.button {
+  width: 300px;
+  height: 300px;
+}
+
+.left-side .button-label {
+  position: absolute;
+  bottom: 25px;
+}
+
+.button-label {
+  font-size: 30px;
+}
+
+.timer {
+  font-size: 10rem;
+}
+
+.right-side {
+  width: 300px;
+}
+
+.type-range {
+  height: 700px;
+}
+
+.toast-peach {
+  height: 140px;
+}
+
+input[type=range] {
+  width: 580px;
+  top: 350px;
+  left: -145px;
+}
+} /*@media screen and (min-width: 1920px)*/
+} /*@media screen and (orientation: landscape)*/
