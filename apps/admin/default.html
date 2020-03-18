@@ -12,13 +12,13 @@
             function updateDefault() {
                 if (document.getElementById("start-on-boot").checked == false) {
                     // FIXME: temporarily hardcoded
-                    pyxis.apps.setDefault('Admin Panel', '0.1');
+                    pyxis.apps.setDefault('/opt/inox/apps/admin');
                 }
             }
             function runApp() {
                 updateDefault();
                 if (typeof appToRun !== 'undefined') {
-                    window.location.href = `file://${appToRun.libPath}/${appToRun.path}/index.html`;
+                    window.location.href = `file://${appToRun.path}/index.html`;
                 } else {
                     window.location.href = 'index.html';
                 }

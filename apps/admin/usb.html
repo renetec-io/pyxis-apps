@@ -12,19 +12,18 @@
                 let content = "";
                 lib.apps.forEach(app => {
                     let buttonText, buttonDisabled, onclick;
-                    if (app.installed) {
-                        buttonDisabled = 'disabled';
-                        buttonText = 'Installed';
-                        onclick = 'false';
+                    if (typeof app.installedPath !== 'undefined') {
+                        actionText = 'Open';
+                        onclick = `window.location.href = 'application.html?tag=${encodeURIComponent(app.installedPath)}'`;
                     } else {
-                        buttonDisabled = '';
-                        buttonText = 'Install';
-                        onclick = `pyxis.apps.install('${lib.path}', '${app.name}', '${app.version}');populate()`;
+                        actionText = 'Install';
+                        onclick = `pyxis.apps.install('${app.path}');populate()`;
                     }
-                    content += `<li class="flex"><span><h3>${app.name}</h3>`
-                        + `<span class="secondary-text">Version: ${app.version}</span></span><span>`
-                        + `<button class="button raised bg-blue-500 color-white" ${buttonDisabled} onclick="${onclick}">${buttonText}</button>`
+                    content += `<li ripple class="flex" onclick="${onclick}"><span class="item-text">${app.name}`
+                        + `<span class="secondary-text">Version: ${app.version}</span></span>`
+                        + `<span class="color-blue-500">${actionText}</span>`
                         + `</span></li>`;
+
                 });
                 document.getElementById("apps-list").innerHTML = content;
             }

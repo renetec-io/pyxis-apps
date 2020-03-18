@@ -10,7 +10,7 @@
         <script src="static/js/pyxis-api.js"></script>
         <script src="static/js/network.js"></script>
     </head>
-    <body onload="displayNetwork();setInterval(displayNetwork, 1000);">
+    <body onload="displayNetwork();setInterval(displayNetwork, 1000);displayCountry()">
         <div class="main-content">
 
             <div class="title-section">
@@ -22,6 +22,14 @@
                     <button class="button item-text" onclick="Dialog.show(document.querySelector('#dialog-network'));showDialog('network-name');" ripple="ripple">
                         <h3>Network</h3>
                         <span id="current-network" class="secondary-text">
+                        </span>
+                    </button>
+                </div>
+
+                <div class="card card-button">
+                    <button class="button item-text" ripple="ripple">
+                        <h3>Country</h3>
+                        <span id="current-country" class="secondary-text">
                         </span>
                     </button>
                 </div>

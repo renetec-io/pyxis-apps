@@ -1,3 +1,11 @@
+function displayCountry() {
+    const country = pyxis.wlan.getCountry();
+    let textElement = document.getElementById('current-country');
+    if (typeof country !== 'undefined') {
+        textElement.textContent = country;
+    }
+}
+
 function displayNetwork() {
     const list = pyxis.wlan.listNetworks();
     const connected = list.find(element => element.state == 1);
@@ -12,7 +20,7 @@ function displayNetwork() {
 function connect() {
     const ssid = document.getElementById('network-name').value;
     const pswd = document.getElementById('password').value;
-    if (pswd.length > 0 && ssid.length > 0) {
+    if (ssid.length > 0) {
         pyxis.wlan.connect(ssid, pswd);
     }
 }

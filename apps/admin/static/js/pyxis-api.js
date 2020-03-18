@@ -47,15 +47,15 @@ function defaultApp(json) {
 
 function nonLocalLib(json) {
     let lib = JSON.parse(json);
-    let installed = new Set();
+    let installed = new Map();
     lib.apps.forEach((app) => {
-        installed.add(pyxis.apps.tag(app));
+        installed.set(app.name + app.version, app.path);
     });
     for (i in lib.other) {
         let library = lib.other[i];
         if (library.local === false) {
             library.apps.forEach((app) => {
-                app.installed = installed.has(pyxis.apps.tag(app));
+                app.installedPath = installed.get(app.name + app.version);
             });
             return library;
         }
@@ -85,9 +85,10 @@ if (typeof(pyxis) == "undefined") {
         getRotation() {return 'normal'},
     };
 
-    let dump = '{"apps": [{"path": "Pyxis-wifi", "name": "wifi", "version": "1.0"},{"path": "Pyxis-admin", "name": "admin", "version": "0.1"}], "admin": {"name": "admin", "version": "0.1"}, "default": {"name": "admin", "version": "0.1"}, "other": [{"path": "/opt/inox/apps/", "local": true, "apps": [{"path": "Pyxis-wifi", "name": "wifi", "version": "1.0"}, {"path": "Pyxis-admin", "name": "admin", "version": "0.1"}, {"path": "screenrotation", "name": "screen-settings", "version": "0.1"}, {"path": "sysinfo", "name": "sysinfo", "version": "0.1"}]}, {"path": "/media//UNTITLED.vfat", "local": false, "apps": [{"path": "svg-animation-traveler", "name": "The_Traveler_Animation", "version": "1.0"}]},{"path":"/opt/inox/apps/demos","local":true,"apps":[{"name":"Beer Machine","version":"0.1"},{"name":"Toaster UI","version":"0.1"}]}]}';
+    let dump = '{"path": "/home/pi/.inox/apps/", "apps": [{"path": "/home/pi/.inox/apps/Pyxis-wifi", "name": "wifi", "version": "1.0"}, {"path": "/home/pi/.inox/apps/Pyxis-admin", "name": "admin", "version": "0.1"}], "admin": {"name": "admin", "version": "0.1", "path": "/home/pi/.inox/apps/Pyxis-admin"}, "default": {"name": "admin", "version": "0.1", "path": "/home/pi/.inox/apps/Pyxis-admin"}, "other": [{"path": "/opt/inox/apps/", "local": true, "apps": [{"path": "/opt/inox/apps/Pyxis-wifi", "name": "wifi", "version": "1.0"}, {"path": "/opt/inox/apps/Pyxis-admin", "name": "admin", "version": "0.1"}, {"path": "/opt/inox/apps/screenrotation", "name": "screen-settings", "version": "0.1"}, {"path": "/opt/inox/apps/sysinfo", "name": "sysinfo", "version": "0.1"}]}, {"path": "/media//UNTITLED.vfat", "local": false, "apps": [{"path": "/media/UNTITLED.vfat/svg-animation-traveler", "name": "The_Traveler_Animation", "version": "1.0"}]},{"path":"/opt/inox/apps/demos","local":true,"apps":[{"path": "/opt/inox/apps/demos/beer-machine","name":"Beer Machine","version":"0.1"},{"path":"/opt/inox/apps/demos/toaster","name":"Toaster UI","version":"0.1"}]}]}';
+
     pyxis.apps = {
-        tag(app) { return app.name + "-" + app.version },
+        tag(app) { return app.path },
         getInstalled() {
             return new Promise((resolve) => {
                 resolve(installedApps(dump));
@@ -103,16 +104,19 @@ if (typeof(pyxis) == "undefined") {
                 resolve(nonLocalLib(dump));
             })
         },
-        install(path, name, version) {
-            console.log(`INSTALL "${path}" "${name}" "${version}"`);
+        install(path) {
+            console.log(`INSTALL "${path}"`);
+        },
+        uninstall(path) {
+            console.log(`UNINSTALL "${path}"`);
         },
         getDefault() {
             return new Promise((resolve) => {
                 resolve(defaultApp(dump));
             })
         },
-        setDefault(name, version) {
-            console.log(`SET_DEFAULT "${name}" "${version}"`);
+        setDefault(path) {
+            console.log(`SET_DEFAULT "${path}"`);
         },
         getByTag(tag) {
             return new Promise((resolve) => {
@@ -129,8 +133,7 @@ if (typeof(pyxis) == "undefined") {
         },
         getBrowserVersion() {
             return "Inox 0.0.1";
-        },
-        navigateToCredits() {}
+        }
     };
     pyxis.wlan = {
         listNetworks() {
@@ -142,6 +145,9 @@ if (typeof(pyxis) == "undefined") {
         },
         connect(ssid, psk) {
             console.log(`Connect to WLAN ${ssid} : ${psk}`);
+        },
+        getCountry() {
+            return "US";
         }
     };
 } else {
@@ -172,25 +178,29 @@ if (typeof(pyxis) == "undefined") {
         getRotation() {return pyxis.plugins.system('inox-settings-manager --get rotation').trim();},
     };
     pyxis.apps = {
-        tag(app) { return app.name + "-" + app.version },
+        tag(app) { return app.path },
         getInstalled() { return getApps(installedApps) },
         getDemos() { return getApps(demosLib) },
         getNonLocal() { return getApps(nonLocalLib) },
         getDefault() { return getApps(defaultApp) },
         getByTag(tag) { return getApps(appByTag, tag) },
-        install(path, name, version) {
+        install(path) {
             function closeCommandsPipe() { pyxis.fifo.close("admin_commands"); }
             pyxis.fifo.openWrite("admin_commands");
-            pyxis.fifo.write("admin_commands", `INSTALL "${path}" "${name}" "${version}"\n`);
-            pyxis.fifo.write("admin_commands", "SAVE\n");
+            pyxis.fifo.write("admin_commands", `INSTALL "${path}"\n`);
             setTimeout(closeCommandsPipe, 100);
         },
-        setDefault(name, version) {
+        uninstall(path) {
             function closeCommandsPipe() { pyxis.fifo.close("admin_commands"); }
             pyxis.fifo.openWrite("admin_commands");
-            pyxis.fifo.write("admin_commands", `SET_DEFAULT "${name}" "${version}"\n`);
+            pyxis.fifo.write("admin_commands", `UNINSTALL "${path}"\n`);
+            setTimeout(closeCommandsPipe, 100);
+        },
+        setDefault(path) {
+            function closeCommandsPipe() { pyxis.fifo.close("admin_commands"); }
+            pyxis.fifo.openWrite("admin_commands");
+            pyxis.fifo.write("admin_commands", `SET_DEFAULT "${path}"\n`);
             pyxis.fifo.write("admin_commands", "SAVE\n");
-            pyxis.fifo.write("admin_commands", "PREPARE_DEFAULT\n");
             setTimeout(closeCommandsPipe, 100);
         }
     };
@@ -202,11 +212,7 @@ if (typeof(pyxis) == "undefined") {
             return pyxis.plugins.system('hostname');
         },
         getBrowserVersion() {
-            return 'Inox ' + pyxis.plugins.system("dpkg -s inox | grep 'Version:' | cut -d ' ' -f 2");
-        },
-        navigateToCredits() {
-            pyxis.plugins.system('echo "chrome://credits" > /tmp/pyxis-override-url.txt');
-            pyxis.plugins.system('/opt/inox/inox-restart');
+            return pyxis.plugins.system("echo Inox; dpkg -s inox | grep 'Version:' | cut -d ' ' -f 2");
         }
     };
     pyxis.wlan = {
@@ -214,13 +220,13 @@ if (typeof(pyxis) == "undefined") {
             const wpaPrefix = '/sbin/wpa_cli -i wlan0 ';
             const stdout = pyxis.plugins.system(wpaPrefix + 'list_networks');
             const results = stdout.split('\n');
-            var output = [];
-            for (var i = 1; i < results.length - 1; ++i) {
+            let output = [];
+            for (let i = 1; i < results.length - 1; ++i) {
                 const elements = results[i].split('\t');
-                var state = 0;
-                if (elements.length >= 4 && elements[3] == "[DISABLED]") {
+                let state = 0;
+                if (elements.length >= 4 && elements[3] === "[DISABLED]") {
                     state = 2;
-                } else if (elements.length >= 4 && elements[3] == "[CURRENT]") {
+                } else if (elements.length >= 4 && elements[3] === "[CURRENT]") {
                     state = 1;
                 }
                 output.push({name: elements[1], state: state});
@@ -229,11 +235,30 @@ if (typeof(pyxis) == "undefined") {
         },
         connect(ssid, psk) {
             const wpaPrefix = '/sbin/wpa_cli -i wlan0 ';
-            const net = 0;
+
+            // Only one stored network is supported. Clear the list.
+            const stdout = pyxis.plugins.system(wpaPrefix + 'list_networks');
+            const stored_networks = stdout.split('\n');
+            for (let i = 1; i < stored_networks.length - 1; ++i) {
+                const net = stored_networks[i].slice(0, stored_networks[i].indexOf('\t'));
+                pyxis.plugins.system(wpaPrefix + `remove_network ${net}`);
+            }
+
+            const net = pyxis.plugins.system(wpaPrefix + 'add_network').trim();
             pyxis.plugins.system(wpaPrefix + `set_network ${net} ssid '"${ssid}"'`);
-            pyxis.plugins.system(wpaPrefix + `set_network ${net} psk '"${psk}"'`);
+            if (psk !== '') {
+                pyxis.plugins.system(wpaPrefix + `set_network ${net} psk '"${psk}"'`);
+            } else {
+                pyxis.plugins.system(wpaPrefix + `set_network ${net} key_mgmt NONE`);
+            }
+            pyxis.plugins.system(wpaPrefix + `enable_network ${net}`);
             pyxis.plugins.system(wpaPrefix + 'save_config');
-            pyxis.plugins.system(wpaPrefix + 'reconfigure');
+            // pyxis.plugins.system(wpaPrefix + 'reconfigure');
+        },
+        getCountry() {
+            const wpaPrefix = '/sbin/wpa_cli -i wlan0 ';
+            const result = pyxis.plugins.system(wpaPrefix + 'get country');
+            return (result !== "FAIL") ? result : undefined;
         }
     };
 }
