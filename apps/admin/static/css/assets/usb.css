@@ -192,7 +192,8 @@ body {
 }
 .navigation-section .list li .secondary-text,
 .dialog-content .list li .secondary-text {
-  margin-bottom: 20px;
+  margin-top: 10px;
+  margin-bottom: 0px;
 }
 .navigation-section .list .flex,
 .dialog-content .list .flex {

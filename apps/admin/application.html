@@ -15,20 +15,27 @@
                 if (wasDefault !== setDefault) {
                     if (setDefault && (typeof appToRun !== 'undefined'))
                     {
-                        pyxis.apps.setDefault(appToRun.name, appToRun.version);
+                        pyxis.apps.setDefault(appToRun.path);
                     } else {
                         // FIXME: temporarily hardcoded
-                        pyxis.apps.setDefault('Admin Panel', '0.1');
+                        pyxis.apps.setDefault('/opt/inox/apps/admin');
                     }
                 }
             }
             function runApp() {
                 updateDefault();
                 if (typeof appToRun !== 'undefined') {
-                    window.location.href = `file://${appToRun.libPath}/${appToRun.path}/index.html`;
+                    window.location.href = `file://${appToRun.path}/index.html`;
                 } else {
                     window.location.href = 'index.html';
                 }
+            }
+            function removeApp() {
+                updateDefault();
+                if (typeof appToRun !== 'undefined') {
+                    pyxis.apps.uninstall(appToRun.path);
+                }
+                window.location.href = 'installed.html';
             }
             function navigateBack() {
                 updateDefault();
@@ -63,6 +70,7 @@
             <div class="navigation-section">
                 <div class="page">
                     <p id="app-description" class="justify-text f-1-2"></p>
+                    <button class="button color-red-500" onclick="Dialog.show(document.querySelector('#dialog-confirm'))">Remove</button>
                     <p class="center-text f-1-2">
                         <span class="checkbox">
                             <input type="checkbox" id="start-on-boot" />
@@ -75,9 +83,24 @@
                     </p>
                 </div>
             </div>
-
         </div>
+        <div id="dialog-confirm" class="dialog" hidden>
+            <h1 class="dialog-title">Confirm remove application</h1>
+            <div class="dialog-content">
+                <p id="log"></p>
+            </div>
+            <div class="dialog-content right-text">
+                <button onclick="Dialog.hideCurrentDialog();" class="button">Cancel</button>
+                <button onclick="removeApp()" class="button raised bg-red-500 color-white">Confirm</button>
+            </div>
+        </div>
+        <div class="overlay dialog-overlay" onclick="Dialog.hideCurrentDialog();" hidden></div>
         <!-- End content -->
         <script src="static/js/material.js"></script>
+        <script>
+            window.addEventListener("DOMContentLoaded", function() {
+                var md = new Material();
+            });
+        </script>
     </body>
 </html>

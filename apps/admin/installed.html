@@ -9,13 +9,16 @@
         <script src="static/js/pyxis-api.js"></script>
         <script>
             function openApp(tag) {
-                window.location.href = `application.html?tag=${tag}`;
+                window.location.href = `application.html?tag=${encodeURIComponent(tag)}`;
             }
             function doPopulate(apps) {
                 let content = "";
                 apps.forEach(app => {
                     let tag = pyxis.apps.tag(app);
-                    content += `<li class="flex"><button class="button item-text" ripple="ripple" onclick="openApp('${tag}')"><h3>${app.name}</h3><span class="secondary-text">Version: ${app.version}</span></button></li>`;
+                    content += `<li ripple class="flex" onclick="openApp('${tag}')">`
+                        + `<span class="item-text">${app.name}`
+                        + `<span class="secondary-text">Version: ${app.version}</span>`
+                        +`</span></li>`;
                 });
                 document.getElementById("apps-list").innerHTML = content;
             }
