@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>PYXIS FIFO API EXAMPLE</title>
+
+	<link href="css/styles.css" rel="stylesheet">
+	<script language="JavaScript">
+		function init_pipes() {
+			pyxis.fifo.openRead("text", update_text);
+			pyxis.fifo.openRead("color", update_color);
+			pyxis.fifo.openEval("eval");
+		}
+
+		function update_color(color) {
+			document.getElementById('test-button').style.background = color;
+		}
+
+		function update_text(text) {
+			document.getElementById('test-button').innerHTML = text;
+		}
+	</script>
+</head>
+<body onload="init_pipes()">
+<div class="container">
+	<h2>PYXIS FIFO API EXAMPLE</h2>
+	<div class="hint">
+		Try this from terminal:<br>
+		$ echo "It works!" > /tmp/pyxis-fifo/text<br>
+		$ echo "fuchsia" > /tmp/pyxis-fifo/color<br>
+		$ echo "location.reload()" > /tmp/pyxis-fifo/eval
+	</div>
+	<div class="buttons">
+		<div id="test-button" class="button">Lorem ipsum...</div>
+	</div>
+</div>
+
+</body>
+</html>

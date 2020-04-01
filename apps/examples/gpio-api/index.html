@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>PYXIS GPIO API EXAMPLE</title>
+
+	<link href="css/styles.css" rel="stylesheet">
+	<script language="JavaScript">
+		const gpio = pyxis.gpio;
+		let gpio10NumChanges = 0;
+		let gpio24NumChanges = 0;
+
+		function initPins() {
+			gpio.init(10, gpio.INPUT, {pud: gpio.PULL_UP});
+			gpio.init(24, gpio.INPUT, {pud: gpio.PULL_DOWN});
+			gpio.init(23, gpio.OUTPUT);
+			gpio.write(23, gpio.LOW);
+
+
+			setTimeout(function () {
+				gpio.onChange(10, {callback: gpio10Change});
+				gpio.onChange(24, {callback: gpio24Change});
+				gpio.onChange(23, {callback: gpio23Change});
+
+				document.getElementById('gpio-10-state').innerText = gpio.read(10) === gpio.HIGH ? 'HIGH' : 'LOW';
+				document.getElementById('gpio-24-state').innerText = gpio.read(24) === gpio.HIGH ? 'HIGH' : 'LOW';
+				document.getElementById('gpio-23-state').innerText = gpio.read(23) === gpio.HIGH ? 'HIGH' : 'LOW';
+			}, 100);
+		}
+
+		function deinitPins() {
+			gpio.onChange(10, {cancel: true});
+			gpio.onChange(24, {cancel: true});
+			gpio.onChange(23, {cancel: true});
+
+			gpio.deinit(10);
+			gpio.deinit(24);
+			gpio.deinit(23);
+		}
+
+		function gpio10Change(state) {
+			let str = state === gpio.HIGH ? 'HIGH' : 'LOW';
+			console.log('gpio10: ' + str);
+
+			gpio10NumChanges++;
+			document.getElementById('gpio-10-state').innerText = str + ` (${gpio10NumChanges})`;
+		}
+
+		function gpio24Change(state) {
+			let str = state === gpio.HIGH ? 'HIGH' : 'LOW';
+			console.log('gpio24: ' + str);
+
+			gpio24NumChanges++;
+			document.getElementById('gpio-24-state').innerText = str + ` (${gpio24NumChanges})`;
+		}
+
+		function gpio23Change(state) {
+			let str = state === gpio.HIGH ? 'HIGH' : 'LOW';
+			console.log('gpio23: ' + str);
+
+			document.getElementById('gpio-23-state').innerText = str;
+		}
+
+		function toggleOutput() {
+			const nextState = gpio.read(23) === gpio.HIGH ? gpio.LOW : gpio.HIGH;
+			gpio.write(23, nextState);
+		}
+	</script>
+</head>
+<body onload="initPins();" onunload="deinitPins()">
+<div class="container">
+	<h2>PYXIS GPIO API EXAMPLE</h2>
+	<div class="hint">
+		Configuration:<br>
+		GPIO 10 - input with pull-up<br>
+		GPIO 24 - input with pull-down<br>
+		GPIO 23 - output
+	</div>
+	<h2>Output state</h2>
+	<div class="buttons">
+		<div class="indicator">GPIO 23: <span id="gpio-23-state"></span></div>
+		<div class="button" onclick="toggleOutput()">Toggle</div>
+	</div>
+	<h2>Input state (changes)</h2>
+	<div class="buttons">
+		<div class="indicator">GPIO 10 (PU): <span id="gpio-10-state"></span></div>
+		<div id="gpio_24" class="indicator">GPIO 24 (PD): <span id="gpio-24-state"></span></div>
+	</div>
+</div>
+
+</body>
+</html>

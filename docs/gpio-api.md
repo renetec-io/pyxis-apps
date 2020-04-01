@@ -73,14 +73,14 @@ gpio.write(pin, value)
 
 Current implementation uses RPi registers and has no status check, it is assumed to succeed given functional hardware.
 
-### onchange
+### onChange
 ```
-gpio.onchange(pin, conf)
+gpio.onChange(pin, conf)
 ```
 - `pin: number`, pin number
 - `conf: object`, a JS object with optional arguments
   - `cancel: boolean`, if true the callback on the pin is removed, other arguments are ignored, false by default
-  - `callback: function`, callback executed on every relevant event, if cancel is not set or false - callback must be provided
+  - `callback: function`, callback executed on every relevant event, if cancel is not set or false - callback must be provided. The argument to the function indicates the pin state, `gpio.HIGH | gpio.LOW`.
   - `edge: gpio.RISING | gpio.FALLING | gpio.ANY`, which front to detect, `ANY` by default
   - `initial: bool`, whether to invoke the callback if the pin initially is in the desired state, false by default
   - `debounce: number`, debounce value in ms (see below), 10 by default
