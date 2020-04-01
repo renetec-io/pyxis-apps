@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>UART API EXAMPLE</title>
+
+	<link href="css/styles.css" rel="stylesheet">
+	<script language="JavaScript">
+		function init_write_deinit() {
+			pyxis.uart.init(115200);
+			pyxis.uart.write("Just saying hello...");
+			pyxis.uart.deinit();
+		}
+
+		function init_uart() {
+			pyxis.uart.init(115200, on_receive, on_transmit);
+		}
+
+		function on_receive(str) {
+			console.log('received:' + str);
+			document.getElementById('received-text').innerHTML = str;
+		}
+
+		function on_transmit() {
+			console.log('transmitted');
+		}
+
+		function send_click(id) {
+			console.log('click:' + id);
+			pyxis.uart.write('clicked:'+ id);
+		}
+	</script>
+</head>
+<body onload="init_write_deinit(); init_uart();">
+<div class="container">
+	<h2>PYXIS UART API EXAMPLE</h2>
+	<div class="hint">
+		Connect to UART:<br>
+		115200 baud, 8 bit data, no parity, 1 stop bit.<br>
+		Try sending and receiving lines of text data.
+	</div>
+	<h2>SEND BUTTON CLICK</h2>
+	<div class="buttons">
+		<div id="yes-button" class="button color_yes" onclick="send_click(this.id)">Yes</div>
+		<div id="no-button" class="button color_no" onclick="send_click(this.id)">No</div>
+	</div>
+	<h2>RECEIVED</h2>
+	<div id="received-text" class="received">
+	</div>
+</div>
+
+</body>
+</html>

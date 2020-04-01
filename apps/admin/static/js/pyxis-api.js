@@ -12,6 +12,7 @@ function localAppByTag(lib, tag) {
         if (pyxis.apps.tag(app) === tag) {
             app.libPath = lib.path;
             app.default = isDefault;
+            app.installed = true;
             return app;
         }
     }
@@ -26,6 +27,7 @@ function localAppByTag(lib, tag) {
             if (pyxis.apps.tag(app) === tag) {
                 app.libPath = lib.other[i].path;
                 app.default = isDefault;
+                app.installed = false;
                 return app;
             }
         }
@@ -77,6 +79,20 @@ function demosLib(json) {
     return {path: '', local: true, apps: []};
 }
 
+function examplesLib(json) {
+    let lib = JSON.parse(json);
+    for (i in lib.other) {
+        let library = lib.other[i];
+        if (library.local === false)
+            continue;
+        let path = library.path.split('/');
+        if (path[path.length - 1] === 'examples') {
+            return library;
+        }
+    }
+    return {path: '', local: true, apps: []};
+}
+
 if (typeof(pyxis) == "undefined") {
     // Define mock Pyxis APIs
     window.pyxis={};
@@ -97,6 +113,11 @@ if (typeof(pyxis) == "undefined") {
         getDemos() {
             return new Promise((resolve) => {
                 resolve(demosLib(dump));
+            })
+        },
+        getExamples() {
+            return new Promise((resolve) => {
+                resolve(examplesLib(dump));
             })
         },
         getNonLocal() {
@@ -181,6 +202,7 @@ if (typeof(pyxis) == "undefined") {
         tag(app) { return app.path },
         getInstalled() { return getApps(installedApps) },
         getDemos() { return getApps(demosLib) },
+        getExamples() { return getApps(examplesLib) },
         getNonLocal() { return getApps(nonLocalLib) },
         getDefault() { return getApps(defaultApp) },
         getByTag(tag) { return getApps(appByTag, tag) },

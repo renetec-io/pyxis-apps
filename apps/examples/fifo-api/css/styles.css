@@ -1,0 +1,203 @@
+body {
+	margin: 0;
+	padding: 0;
+	font-family: sans-serif;
+}
+body * {
+	transition: all ease-out 0.3s;
+	box-sizing: border-box;
+}
+
+h2 {
+	width: 100%;
+	text-align: center;
+	color: rgba(255,255,255,0.7);
+	font-weight: 100;
+	text-transform: uppercase;
+}
+
+.hint {
+    margin: 0 auto;
+    padding: 10% 5%;
+    width: 80%;
+    border: 1px solid #666666;
+    background: #313137;
+    display: inline-flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    border-radius: 3px;
+    text-align: left;
+    font-family: "lucida typewriter", lucidatypewriter, monospace;
+    color: rgba(255,255,255,0.7);
+    line-height: 1.5;
+}
+
+.container {
+	background: #303036;
+	height: 100vh;
+	width: 100%;
+	margin: 0 auto;
+	display: inline-flex;
+	flex-direction: column;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: space-around;
+	border: 1px solid rgba(123, 125, 124, 0.4);
+}
+
+.buttons {
+  margin: 0 auto;
+  padding: 6% 0;
+  width: 80%;
+  border: 1px solid #666666;
+  background: #313137;
+  display: inline-flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-around;
+  border-radius: 3px;
+}
+
+.button {
+    position: relative;
+    background: dodgerblue;
+    width: 80%;
+    padding: 5% 0;
+    margin: 0 2%;
+    text-align: center;
+    border-radius: 2px;
+    cursor: pointer;
+    color: #ffffff;
+}
+
+.button text {mix-blend-mode: difference;}
+
+@media screen and (max-width: 599px) {
+h2 {
+    font-size: 18px;
+    margin-bottom: -60px;
+}
+
+.hint {
+    font-size: 12px;
+    height: 100px;
+}
+
+.buttons {
+    height: 360px;
+}
+
+.button {
+    font-size: 20px;
+}
+} /*@media screen and (max-width: 599px)*/
+
+@media screen and (min-width: 600px) {
+h2 {
+    font-size: 20px;
+    margin-bottom: -100px;
+}
+
+.hint {
+    font-size: 14px;
+    height: 130px;
+}
+
+.buttons {
+    height: 360px;
+}
+
+.button {
+    font-size: 22px;
+}
+} /*@media screen and (min-width: 600px)*/
+
+@media screen and (min-width: 800px) {
+h2 {
+    font-size: 22px;
+}
+
+.hint {
+    font-size: 16px;
+    height: 100px;
+}
+
+.buttons {
+    height: 360px;
+}
+
+.button {
+    font-size: 24px;
+}
+} /*@media screen and (min-width: 800px)*/
+
+@media screen and (min-width: 800px) and (orientation: landscape) {
+h2 {
+    margin-bottom: 0px;
+}
+
+.hint {
+    height: 170px;
+}
+
+.buttons {
+    height: 190px;
+}
+} /*@media screen and (min-width: 800px) and (orientation: landscape)*/
+
+@media screen and (min-width: 1024px) {
+h2 {
+    font-size: 24px;
+    margin-bottom: -20px;
+}
+
+.hint {
+    height: 210px;
+}
+
+.button {
+    font-size: 28px;
+}
+} /*@media screen and (min-width: 1024px)*/
+
+@media screen and (min-width: 1080px) {
+h2 {
+    font-size: 32px;
+    margin-bottom: -120px;
+}
+
+.hint {
+    height: 220px;
+    font-size: 24px;
+}
+
+.buttons {
+    height: 900px;
+}
+
+.button {
+    font-size: 48px;
+}
+} /*@media screen and (min-width: 1080px)*/
+
+@media screen and (min-width: 1920px) {
+h2 {
+    font-size: 32px;
+    margin-bottom: 0px;
+}
+
+.hint {
+    height: 390px;
+    font-size: 24px;
+}
+
+.buttons {
+    height: 490px;
+}
+
+.button {
+    font-size: 48px;
+}
+} /*@media screen and (min-width: 1920px)*/

@@ -95,12 +95,12 @@ function updatePackageCallback(text) {
 }
 
 function updatePackage() {
-    const APT_COMMAND = "sudo apt-get -y install && sudo reboot\n";
+    const APT_COMMAND = "sudo apt-get -y install inox && sudo reboot\n";
     /* Do not allow to push button multiple times */
     document.getElementById("updateBtn").disabled = true;
     document.getElementById("log").innerHTML =
         "UPDATE IN PROGRESS!<br>"
-        + "It will take about 10 minutes. Please, do not disturb.<br>"
+        + "It may take up to 10 minutes. Please, do not disturb.<br>"
         + "Once done, the device will reboot automatically!";
     pyxis.fifo.openRead("system_response", updatePackageCallback);
     pyxis.fifo.openWrite("system_commands");

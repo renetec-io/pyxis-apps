@@ -49,6 +49,9 @@
                     document.getElementById('app-description').innerText = `Version: ${app.version}`;
                     appToRun = app;
                     isDefault = app.default;
+                    if (app.installed) {
+                        document.getElementById('remove-button').disabled = false;
+                    }
                 }
                 document.getElementById("start-on-boot").checked = isDefault;
                 wasDefault = isDefault;
@@ -70,7 +73,7 @@
             <div class="navigation-section">
                 <div class="page">
                     <p id="app-description" class="justify-text f-1-2"></p>
-                    <button class="button color-red-500" onclick="Dialog.show(document.querySelector('#dialog-confirm'))">Remove</button>
+                    <button id="remove-button" class="button color-red-500" onclick="Dialog.show(document.querySelector('#dialog-confirm'))" disabled>Remove</button>
                     <p class="center-text f-1-2">
                         <span class="checkbox">
                             <input type="checkbox" id="start-on-boot" />
