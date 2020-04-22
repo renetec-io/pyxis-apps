@@ -1,20 +1,30 @@
+// Copyright (c) Renetec, Inc. All rights reserved.
+// The source code is available at https://github.com/renetec-io/pyxis-apps
+
 function displayCountry() {
-    const country = pyxis.wlan.getCountry();
-    let textElement = document.getElementById('current-country');
-    if (typeof country !== 'undefined') {
-        textElement.textContent = country;
-    }
+    pyxis.wlan.getCountry().then((country) => {
+        let textElement = document.getElementById('current-country');
+        if (typeof country !== 'undefined') {
+            textElement.textContent = country;
+        }
+    })
 }
 
 function displayNetwork() {
-    const list = pyxis.wlan.listNetworks();
-    const connected = list.find(element => element.state == 1);
-    let textElement = document.getElementById('current-network');
-    if (connected === undefined) {
-        textElement.textContent = "<NONE>";
-    } else {
-        textElement.textContent = connected.name;
-    }
+    pyxis.wlan.listScannedNetworks().then((response) => {
+        connected = response.find(element => element.is_connected == true)
+
+        let textElement = document.getElementById('current-network');
+        if (connected === undefined) {
+            textElement.textContent = "<NONE>"; 
+        } else {
+            textElement.textContent = connected.ssid;
+        }
+    });
+}
+
+function forceScan() {
+    pyxis.wlan.forceScan();
 }
 
 function connect() {

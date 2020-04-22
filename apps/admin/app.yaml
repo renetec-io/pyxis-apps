@@ -1,2 +1,4 @@
-name: Settings
-version: '0.1'
+name: 'Settings'
+version: '0.2'
+desc: 'Pyxis system settings and application management.
+Settings application can also be used as an example of accessing system APIs.'

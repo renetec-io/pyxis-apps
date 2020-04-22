@@ -1,2 +1,6 @@
-name: FIFO API Use Example
+name: 'FIFO API Use Example'
 version: '0.1'
+desc: 'A first-in first-out (FIFO), or a named pipe, is a special file accessed through the filesystem.
+It provides a unidirectional inter-process communication channel.
+
+Pipes open with Pyxis API are available for other processes for writing to or reading from, similarly to a regular file.'

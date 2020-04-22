@@ -1,3 +1,5 @@
+<!-- Copyright (c) Renetec, Inc. All rights reserved. -->
+<!-- The source code is available at https://github.com/renetec-io/pyxis-apps -->
 <!DOCTYPE html>
 <html>
     <head>
@@ -6,7 +8,7 @@
         <link rel="stylesheet" href="static/css/assets/default.css"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
         <meta charset="utf-8"/>
-        <script src="static/js/pyxis-api.js"></script>
+        <script src="https://pyxis-api.renetec.io/js/pyxis-api-core.js"></script>
         <script>
             let appToRun;
             let wasDefault = false;
@@ -46,7 +48,8 @@
                 if (typeof app !== 'undefined')
                 {
                     document.getElementById('header-text').innerText = app.name;
-                    document.getElementById('app-description').innerText = `Version: ${app.version}`;
+                    document.getElementById('app-version').innerText = `Version: ${app.version}`;
+                    document.getElementById('app-description').innerText = `${app.desc}`;
                     appToRun = app;
                     isDefault = app.default;
                     if (app.installed) {
@@ -72,6 +75,7 @@
 
             <div class="navigation-section">
                 <div class="page">
+                    <p id="app-version" class="justify-text f-1-2"></p>
                     <p id="app-description" class="justify-text f-1-2"></p>
                     <button id="remove-button" class="button color-red-500" onclick="Dialog.show(document.querySelector('#dialog-confirm'))" disabled>Remove</button>
                     <p class="center-text f-1-2">

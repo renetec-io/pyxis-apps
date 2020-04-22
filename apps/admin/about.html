@@ -1,3 +1,5 @@
+<!-- Copyright (c) Renetec, Inc. All rights reserved. -->
+<!-- The source code is available at https://github.com/renetec-io/pyxis-apps -->
 <!DOCTYPE html>
 <html>
     <head>
@@ -6,13 +8,13 @@
         <link rel="stylesheet" href="static/css/assets/about.css"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
         <meta charset="utf-8"/>
-        <script src="static/js/pyxis-api.js"></script>
+        <script src="https://pyxis-api.renetec.io/js/pyxis-api-core.js"></script>
         <script src="static/js/update.js"></script>
         <script>
           function populate() {
               document.getElementById("ip").innerText = pyxis.sysinfo.getIP();
               document.getElementById("hostname").innerText = pyxis.sysinfo.getHostname();
-              document.getElementById("inox-version").innerText = pyxis.sysinfo.getBrowserVersion();
+              document.getElementById("inox-version").innerText = pyxis.sysinfo.getBrowserVersion().replace(/\n/g," ");
           }
         </script>
     </head>
@@ -25,37 +27,33 @@
 
             <div class="navigation-section">
                 <ul class="list">
-                    <li>
-                        <div>
+                    <li class="flex">
+                        <span class="item-text">
                             <h3>Your IP</h3>
-                        </div>
-                        <span id="ip" class="secondary-text"></span>
+                            <span id="ip" class="secondary-text"></span>
+                        </span>
                     </li>
-                    <li>
-                        <div>
+                    <li class="flex">
+                        <span class="item-text">
                             <h3>HOSTNAME</h3>
-                        </div>
-                        <span id="hostname" class="secondary-text"></span>
+                            <span id="hostname" class="secondary-text"></span>
+                        </span>
                     </li>
-                    <li>
-                        <div>
+                    <li class="flex">
+                        <span class="item-text">
                             <h3>BROWSER VERSION</h3>
-                        </div>
-                        <span id="inox-version" class="secondary-text"></span>
+                            <span id="inox-version" class="secondary-text"></span>
+                        </span>
                     </li>
                     <li>
-                        <div>
-                            <button onclick="Dialog.show(document.querySelector('#dialog-update')); checkForUpdates();" class="button item-text" ripple="ripple">
-                              <h3>System update</h3>
-                            </button>
-                        </div>
+                        <button onclick="Dialog.show(document.querySelector('#dialog-update')); checkForUpdates();" class="button item-text" ripple="ripple">
+                            <h3>System update</h3>
+                        </button>
                     </li>
                     <li>
-                        <div>
-                            <button onclick="window.location.href='legal.html'" class="button item-text" ripple="ripple">
-                                <h3>Legal</h3>
-                            </button>
-                        </div>
+                        <button onclick="window.location.href='legal.html'" class="button item-text" ripple="ripple">
+                            <h3>Legal</h3>
+                        </button>
                     </li>
                 </ul>
             </div>
@@ -70,7 +68,7 @@
                 <button id="updateBtn" onclick="updatePackage();" class="button raised bg-blue-500 color-white" disabled>Update</button>
             </div>
         </div>
-        <div class="overlay dialog-overlay" onclick="Dialog.hideCurrentDialog();" hidden></div>
+        <div class="overlay dialog-overlay" onclick="Dialog.hideCurrentDialog();onUpdateDialogClose();" hidden></div>
         <!-- End content -->
         <script src="static/js/material.js"></script>
         <script>

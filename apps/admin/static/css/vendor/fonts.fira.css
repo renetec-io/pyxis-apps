@@ -1,0 +1,7 @@
+@font-face {
+  font-family: 'Fira Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Fira Mono Regular'), local('FiraMono-Regular'), url(../fonts/FiraMono-Regular.ttf) format('truetype');
+}

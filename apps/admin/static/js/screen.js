@@ -1,3 +1,6 @@
+// Copyright (c) Renetec, Inc. All rights reserved.
+// The source code is available at https://github.com/renetec-io/pyxis-apps
+
 let initialRotation = pyxis.screen.getRotation();
 let currentRotation = initialRotation;
 let currentRotationDeg = '0deg';

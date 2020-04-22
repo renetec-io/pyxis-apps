@@ -1,3 +1,5 @@
+/******* Material Framework by Tim Nguyen ********/
+/** https://github.com/nt1m/material-framework/ **/
 "use strict";
 /* Util */
 var console = (window.console = window.console || {});

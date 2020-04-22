@@ -1,2 +1,3 @@
-name: GPIO API Use Example
+name: 'GPIO API Use Example'
 version: '0.1'
+desc: 'The API provides access to General Purpose Input and Output (GPIO) pins.'

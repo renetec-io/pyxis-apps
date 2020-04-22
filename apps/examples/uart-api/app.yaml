@@ -1,2 +1,3 @@
-name: UART API Use Example
+name: 'UART API Use Example'
 version: '0.1'
+desc: 'The API provides access to Universal Asynchronous Receiver Transmitter (UART), often referred to as a serial port.'
