@@ -14,7 +14,7 @@
           function populate() {
               document.getElementById("ip").innerText = pyxis.sysinfo.getIP();
               document.getElementById("hostname").innerText = pyxis.sysinfo.getHostname();
-              document.getElementById("inox-version").innerText = pyxis.sysinfo.getBrowserVersion().replace(/\n/g," ");
+              document.getElementById("sdk-version").innerText = 'Pyxis SDK v.' + pyxis.sysinfo.getSdkVersion();
           }
         </script>
     </head>
@@ -41,8 +41,8 @@
                     </li>
                     <li class="flex">
                         <span class="item-text">
-                            <h3>BROWSER VERSION</h3>
-                            <span id="inox-version" class="secondary-text"></span>
+                            <h3>VERSIONS</h3>
+                            <span id="sdk-version" class="secondary-text"></span>
                         </span>
                     </li>
                     <li>

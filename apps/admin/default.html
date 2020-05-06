@@ -20,7 +20,11 @@
             function runApp() {
                 updateDefault();
                 if (typeof appToRun !== 'undefined') {
-                    window.location.href = `file://${appToRun.path}/index.html`;
+                    if (appToRun.url !== '') {
+                        window.location.href = appToRun.url;
+                    } else {
+                        window.location.href = `file://${appToRun.path}/index.html`;
+                    }
                 } else {
                     window.location.href = 'index.html';
                 }
@@ -30,8 +34,7 @@
                 window.history.back();
             }
             function doPopulate(app) {
-                if (typeof app !== 'undefined')
-                {
+                if (typeof app !== 'undefined') {
                     document.getElementById('app-name').innerText = app.name;
                     document.getElementById('app-version').innerText = `Version: ${app.version}`;
                     document.getElementById('app-description').innerText = `${app.desc}`;

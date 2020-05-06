@@ -13,10 +13,9 @@
             let appToRun;
             let wasDefault = false;
             function updateDefault() {
-                setDefault = document.getElementById("start-on-boot").checked;
+                let setDefault = document.getElementById("start-on-boot").checked;
                 if (wasDefault !== setDefault) {
-                    if (setDefault && (typeof appToRun !== 'undefined'))
-                    {
+                    if (setDefault && (typeof appToRun !== 'undefined')) {
                         pyxis.apps.setDefault(appToRun.path);
                     } else {
                         // FIXME: temporarily hardcoded
@@ -27,7 +26,11 @@
             function runApp() {
                 updateDefault();
                 if (typeof appToRun !== 'undefined') {
-                    window.location.href = `file://${appToRun.path}/index.html`;
+                    if (appToRun.url !== '') {
+                        window.location.href = appToRun.url;
+                    } else {
+                        window.location.href = `file://${appToRun.path}/index.html`;
+                    }
                 } else {
                     window.location.href = 'index.html';
                 }
@@ -45,8 +48,7 @@
             }
             function doPopulate(app) {
                 let isDefault = false;
-                if (typeof app !== 'undefined')
-                {
+                if (typeof app !== 'undefined') {
                     document.getElementById('header-text').innerText = app.name;
                     document.getElementById('app-version').innerText = `Version: ${app.version}`;
                     document.getElementById('app-description').innerText = `${app.desc}`;

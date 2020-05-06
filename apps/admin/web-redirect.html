@@ -1,0 +1,206 @@
+<!-- Copyright (c) Renetec, Inc. All rights reserved. -->
+<!-- The source code is available at https://github.com/renetec-io/pyxis-apps -->
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Settings | Web Redirect</title>
+        <link rel="stylesheet" href="static/css/vendor/material.css"/>
+        <link rel="stylesheet" href="static/css/vendor/keyboard.css"/>
+        <link rel="stylesheet" href="static/css/assets/web-redirect.css"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <meta charset="utf-8"/>
+        <script src="https://pyxis-api.renetec.io/js/pyxis-api-core.js"></script>
+        <script src="static/js/update.js"></script>
+        <script>
+            let appTag = '/home/pi/.inox/apps/web-redirect-url-wrapper';
+            let url = '';
+            let prevUrl = '';
+            let wasDefault = false;
+            function populate() {
+                pyxis.apps.getByTag(appTag).then((app)=>{
+                    if (typeof app !== 'undefined') {
+                        prevUrl = app.url;
+                        wasDefault = app.default;
+                        document.getElementById('url-input').value = prevUrl;
+                    }
+                    document.getElementById("start-on-boot").checked = wasDefault;
+                });
+            }
+            function updateDefault() {
+                let setDefault = document.getElementById("start-on-boot").checked;
+                if (wasDefault !== setDefault || prevUrl !== url) {
+                    if (setDefault && url !== '') {
+                        pyxis.apps.setRedirect(url);
+                    } else {
+                        // FIXME: temporarily hardcoded
+                        pyxis.apps.setDefault('/opt/inox/apps/admin');
+                    }
+                }
+            }
+            function validate() {
+                url = document.getElementById('url-input').value.trim();
+                if (url === '')
+                    return;
+
+                if (!url.startsWith("http://") && !url.startsWith("https://")) {
+                    url = 'http://' + url;
+                }
+            }
+            function navigate() {
+                validate();
+                if (url !== '') {
+                    updateDefault();
+                    location.href = url;
+                } else {
+                    document.getElementById('url-input').focus();
+                }
+            }
+            function navigateBack() {
+                validate();
+                updateDefault();
+                window.history.back();
+            }
+        </script>
+    </head>
+    <body onload="populate()">
+        <div class="main-content">
+
+            <div class="title-section">
+                <h1><button onclick="navigateBack()" class="icon-button" ripple="circle"><i class="icon-keyboard-arrow-left"></i></button> Web Redirect</h1>
+            </div>
+
+            <div class="navigation-section">
+                <div class="page">
+                    <span class="item-text">
+                        <h3>Specify address for navigation:</h3>
+                        <span class="secondary-text"><input id="url-input" type="text" class="text-input" placeholder="http://example.com"/></span>
+                    </span>
+                </div>
+            </div>
+
+            <p class="center-text f-1-2">
+                <span class="checkbox">
+                    <input type="checkbox" id="start-on-boot" />
+                    <label for="start-on-boot"></label>
+                </span>
+                <label for="start-on-boot">Navigate on boot</label>
+            </p>
+            <p class="center-text f-1-4">
+                <button class="button raised bg-blue-500 color-white" onclick="navigate()">Navigate</button>
+            </p>
+        </div>
+        <div class="simple-keyboard-wrapper">
+            <div class="simple-keyboard"></div>
+        </div>
+        <div class="overlay dialog-overlay" onclick="hideKeyboard()" hidden></div>
+        <!-- End content -->
+        <script src="static/js/material.js"></script>
+        <script src="static/js/keyboard.js"></script>
+        <script>
+            window.addEventListener("DOMContentLoaded", function() {
+                var md = new Material();
+            });
+
+            let Keyboard = window.SimpleKeyboard.default;
+            let selectedInput;
+
+            let keyboard = new Keyboard({
+                onChange: input => onChange(input),
+                onKeyPress: button => onKeyPress(button),
+                theme: "hg-theme-default hg-theme-ios",
+                layout: {
+                    default: [
+                        "q w e r t y u i o p {bksp}",
+                        "a s d f g h j k l {enter}",
+                        "{shift} z x c v b n m , . {shift}",
+                        "{alt} {space} {back}"
+                    ],
+                    shift: [
+                        "Q W E R T Y U I O P {bksp}",
+                        "A S D F G H J K L {enter}",
+                        "{shiftactivated} Z X C V B N M , . {shiftactivated}",
+                        "{alt} {space} {back}"
+                    ],
+                    alt: [
+                        "1 2 3 4 5 6 7 8 9 0 {bksp}",
+                        `@ # $ & * ( ) ' " {enter}`,
+                        "{shift} % - + = / ; : ! ? {shift}",
+                        "{default} {space} {back}"
+                    ]
+                },
+                display: {
+                    "{alt}": ".?123",
+                    "{shift}": "⇧",
+                    "{shiftactivated}": "⇧",
+                    "{enter}": "return",
+                    "{bksp}": "⌫",
+                    "{space}": " ",
+                    "{default}": "ABC",
+                    "{back}": "⇦"
+                }
+            });
+
+            document.querySelectorAll(".text-input").forEach(input => {
+                input.addEventListener("focus", onInputFocus);
+                input.addEventListener("input", onInputChange);
+            });
+
+            function hideKeyboard() {
+                document.querySelector(".simple-keyboard-wrapper").style.display = "none";
+            }
+
+            function onInputFocus(event) {
+                selectedInput = `#${event.target.id}`;
+
+                keyboard.setOptions({
+                    inputName: event.target.id
+                });
+
+                document.querySelector(".simple-keyboard-wrapper").style.display = "block";
+            }
+
+            function onInputChange(event) {
+                keyboard.setInput(event.target.value, event.target.id);
+            }
+
+            function onChange(input) {
+                document.querySelector(selectedInput || '.text-input').value = input;
+            }
+
+            function onKeyPress(button) {
+                if (button == '{enter}' || button == '{back}') {
+                    hideKeyboard();
+                }
+                else if (button.includes("{") && button.includes("}")) {
+                    handleLayoutChange(button);
+                }
+            }
+
+            function handleLayoutChange(button) {
+                let currentLayout = keyboard.options.layoutName;
+                let layoutName;
+
+                switch (button) {
+                    case "{shift}":
+                    case "{shiftactivated}":
+                    case "{default}":
+                        layoutName = currentLayout === "default" ? "shift" : "default";
+                        break;
+
+                    case "{alt}":
+                        layoutName = currentLayout === "alt" ? "default" : "alt";
+                        break;
+
+                    default:
+                        break;
+                }
+
+                if (layoutName) {
+                    keyboard.setOptions({
+                        layoutName: layoutName
+                    });
+                }
+            }
+        </script>
+    </body>
+</html>

@@ -1,0 +1,3 @@
+name: Digital photo frame
+version: '0.1'
+desc: 'Shows random nature images from unsplash.com every 30 seconds. Internet connection required.'
