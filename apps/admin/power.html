@@ -1,0 +1,79 @@
+<!-- Copyright (c) Renetec, Inc. All rights reserved. -->
+<!-- The source code is available at https://github.com/renetec-io/pyxis-apps -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Settings | Screen and Power</title>
+    <link rel="stylesheet" href="static/css/vendor/material.css"/>
+    <link rel="stylesheet" href="static/css/assets/power.css"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta charset="utf-8"/>
+    <script src="https://pyxis-api.renetec.io/js/pyxis-api-core.js"></script>
+    <script>
+      function populate() {
+        pyxis.screen.getState().then((state)=>{
+          const slider = document.getElementById('brightness-input');
+          slider.value = Math.max(state.brightness, 6); // values below 6 disable screen completely on some hardware configs
+          slider.oninput = function () {
+            pyxis.screen.setBrightness(Number(slider.value));
+          }
+        });
+      }
+    </script>
+</head>
+<body onload="populate()">
+<div class="main-content">
+
+    <div class="title-section">
+        <h1><button onclick="window.location.href='index.html'" class="icon-button" ripple="circle"><i class="icon-keyboard-arrow-left"></i></button>Screen and Power</h1>
+    </div>
+
+    <div class="navigation-section">
+        <ul class="list">
+            <li class="flex">
+                <span class="item-text">
+                    <h3>Screen brightness</h3>
+                    <span id="ip" class="secondary-text"><input id="brightness-input" type="range" class="slider" min="6" max="100" value="100"/></span>
+                </span>
+            </li>
+            <li>
+                <button onclick="Dialog.show(document.querySelector('#dialog-confirm-reboot'))" class="button item-text" ripple="ripple">
+                    <h3>Reboot</h3>
+                </button>
+            </li>
+            <li>
+                <button onclick="Dialog.show(document.querySelector('#dialog-confirm-shutdown'))" class="button item-text" ripple="ripple">
+                    <h3>Shutdown</h3>
+                </button>
+            </li>
+        </ul>
+    </div>
+</div>
+<div id="dialog-confirm-reboot" class="dialog" hidden>
+    <h1 class="dialog-title">Confirm reboot</h1>
+    <div class="dialog-content">
+    </div>
+    <div class="dialog-content right-text">
+        <button onclick="Dialog.hideCurrentDialog();" class="button">Cancel</button>
+        <button onclick="pyxis.system.reboot();Dialog.hideCurrentDialog();" class="button raised bg-red-500 color-white">Confirm</button>
+    </div>
+</div>
+<div id="dialog-confirm-shutdown" class="dialog" hidden>
+    <h1 class="dialog-title">Confirm shutdown</h1>
+    <div class="dialog-content">
+    </div>
+    <div class="dialog-content right-text">
+        <button onclick="Dialog.hideCurrentDialog();" class="button">Cancel</button>
+        <button onclick="pyxis.system.shutdown();Dialog.hideCurrentDialog();" class="button raised bg-red-500 color-white">Confirm</button>
+    </div>
+</div>
+<div class="overlay dialog-overlay" onclick="Dialog.hideCurrentDialog();" hidden></div>
+<!-- End content -->
+<script src="static/js/material.js"></script>
+<script>
+    window.addEventListener("DOMContentLoaded", function() {
+        var md = new Material();
+    });
+</script>
+</body>
+</html>

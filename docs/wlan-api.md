@@ -1,37 +1,37 @@
 # Wi-Fi Management API
 
 The API provides access to control of the on-board Wi-Fi module.
-It is available by importing ```https://pyxis-api.renetec.io/js/pyxis-api-core.js``` and exposed through 
-```pyxis.wlan``` object.
+It is available by importing `https://pyxis-api.renetec.io/js/pyxis-api-core.js` and exposed through 
+`pyxis.wlan` object.
 
 ----
 - API methods
-    - [```listScannedNetworks()```](#listscannednetworks)
-    - [```listSavedNetworks()```](#listsavednetworks)
-    - [```forceScan()```](#forcescan)
-    - [```forget(ssid)```](#forgetssid)
-    - [```connect(ssid, psk)```](#connectssid-psk)
-    - [```setEnabled(enabled)```](#setenabledenabled)
-    - [```getStatus```](#getstatus)
-    - [```getCountry()```](#getcountry)
-    - [```setCountry(country)```](#setcountrycountry)
+    - [`listScannedNetworks()`](#listscannednetworks)
+    - [`listSavedNetworks()`](#listsavednetworks)
+    - [`forceScan()`](#forcescan)
+    - [`forget(ssid)`](#forgetssid)
+    - [`connect(ssid, psk)`](#connectssid-psk)
+    - [`setEnabled(enabled)`](#setenabledenabled)
+    - [`getStatus`](#getstatus)
+    - [`getCountry()`](#getcountry)
+    - [`setCountry(country)`](#setcountrycountry)
 
 ----
 
-### ```listScannedNetworks()```
+### `listScannedNetworks()`
 Returns a Promise object that resolves with an array of currently scanned networks.
 If the wireless interface is turned off, it results in an empty array.
 Networks are added as they are discovered during scan, you may need to call this API a few times 
 to get up-to-date information.
-To initiate scan, use [```forceScan()```](#forceScan()) API.
+To initiate scan, use [`forceScan()`](#forceScan()) API.
 
 Example:
 ```javascript
 pyxis.wlan.listScannedNetworks().then((networks) => {
     console.log(networks)
 });
-
 ```
+
 Example of ```networks```:
 ```javascript
 [
@@ -43,15 +43,15 @@ Example of ```networks```:
     is_current: false,
     is_saved: false,
     signal_level: "-53",
-    ssid: "HUAWEI-GLKA6P"
+    ssid: "TPLINK-GLKA6P"
   },
   // ...
 ]
 ```
 
-### ```listSavedNetworks()```
+### `listSavedNetworks()`
 Returns a Promise object that resolves with an array of saved networks or an empty array. 
-A saved network is the one we successfully issued connect request using [```connect(ssid, psk)```](#connectssid-psk) API.
+A saved network is the one we successfully issued connect request using [`connect(ssid, psk)`](#connectssid-psk) API.
 
 Example:
 ```
@@ -60,7 +60,7 @@ pyxis.wlan.listSavedNetworks().then((networks) => {
 });
 ```
 
-Example of ```networks``` value:
+Example of `networks` value:
 ```javascript
 [
     {
@@ -73,9 +73,9 @@ Example of ```networks``` value:
 ]
 ```
 
-### ```forceScan()```
+### `forceScan()`
 Used to initiate scan of available wireless networks.
-Returns a Promise object that resolved with "OK" in case of success. The result of the scan can be retrieved with [```listScannedNetworks()```](#listscannednetworks) API.
+Returns a Promise object that resolved with "OK" in case of success. The result of the scan can be retrieved with [`listScannedNetworks()`](#listscannednetworks) API.
 
 Example:
 ```javascript
@@ -84,8 +84,8 @@ pyxis.wlan.forceScan().then((rv) => {
 });
 ```
 
-### ```forget(ssid)```
-Used to forget previously saved network. Takes the ```ssid``` name of the access point.
+### `forget(ssid)`
+Used to forget previously saved network. Takes the `ssid` name of the access point.
 Returns a Promise object that resolves with "OK" in case of success.
 
 Example:
@@ -95,18 +95,18 @@ pyxis.wlan.forget("some_ssid").then((rv) => {
 });
 ```
 
-### <a name="connectssid-psk"></a>```connect(ssid, psk)```
-Used to connect to specified ```ssid``` and provide an optional ```psk``` password.
-```ssid``` should be available. Otherwise, an error is thrown. 
-```psk``` can be omitted in following cases:
+### `connect(ssid, psk)`
+Used to connect to specified `ssid` and provide an optional `psk` password.
+`ssid` should be available. Otherwise, an error is thrown. 
+`psk` can be omitted in the following cases:
 
-- Access point with the specified ```ssid``` is not password protected.
+- Access point with the specified `ssid` is not password protected.
 - We already connected to this network previously so we just switch to it.
 
 Returns a Promise object that resolves with "OK" in case of success.
 
-NOTE: Success result of API just means that we will try to connect to the specified ```ssid```
-but actual connection status can be retrieved through [```getStatus()```](#getStatus()) call.
+NOTE: Success result of API just means that we will try to connect to the specified `ssid`
+but actual connection status can be retrieved through [`getStatus()`](#getStatus()) call.
 
 Example:
 ```javascript
@@ -115,7 +115,7 @@ pyxis.wlan.connect("some_ssid", "password").then((rv) => {
 });
 ```
 
-### ```setEnabled(enabled)```
+### `setEnabled(enabled)`
 Used to enable or disable the wireless network interface.
 
 Example:
@@ -125,7 +125,7 @@ pyxis.wlan.setEnabled(true).then((rv) => {
 });
 ```
 
-### ```getStatus()```
+### `getStatus()`
 Returns a Promise object that resolves with the current status of the interface.
 
 Example:
@@ -135,7 +135,7 @@ pyxis.wlan.getStatus(true).then((status) => {
 });
 ```
 
-In case we are connected to some ```ssid```, the ```status```  object is as follows:
+In case we are connected to some `ssid`, the `status`  object is as follows:
 ```javascript
 {
     address: "b8:27:eb:XX:XX:XX",
@@ -153,8 +153,8 @@ In case we are connected to some ```ssid```, the ```status```  object is as foll
     wpa_state: "COMPLETED"
 }
 ```
-In this case, fields like ```ssid``` and ```ip_address``` exist.
-The important part here is the value in ```wpa_state``` which represents the current state
+In this case, fields like `ssid` and `ip_address` exist.
+The important part here is the value in `wpa_state`, which represents the current state
 of the wireless module.
 
 In case we are offline or not connected, the response will be
@@ -167,7 +167,7 @@ In case we are offline or not connected, the response will be
 }
 ```
 
-### ```getCountry()```
+### `getCountry()`
 Returns a Promise object that resolves with a currently configured country.
 
 Example:
@@ -177,7 +177,7 @@ pyxis.wlan.getCountry().then((country) => {
 });
 ```
 
-###```setCountry(country)```
+### `setCountry(country)`
 Used to set a country to use. The country is specified with an uppercase two-letter ISO country code.
 
 Example:

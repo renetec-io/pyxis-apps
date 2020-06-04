@@ -10,9 +10,9 @@
 	<link href="css/styles.css" rel="stylesheet">
 	<script language="JavaScript">
 		function init_pipes() {
-			pyxis.fifo.openRead("text", update_text);
-			pyxis.fifo.openRead("color", update_color);
-			pyxis.fifo.openEval("eval");
+			var text_reader = pyxis.fifo.openReader("text", update_text);
+			var color_reader = pyxis.fifo.openReader("color", update_color);
+			var eval = pyxis.fifo.openEval("eval");
 		}
 
 		function update_color(color) {

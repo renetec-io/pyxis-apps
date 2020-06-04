@@ -1,0 +1,62 @@
+<!-- Copyright (c) Renetec, Inc. All rights reserved. -->
+<!-- The source code is available at https://github.com/renetec-io/pyxis-apps -->
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Settings | Security</title>
+        <link rel="stylesheet" href="static/css/vendor/material.css"/>
+        <link rel="stylesheet" href="static/css/assets/security.css"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <meta charset="utf-8"/>
+        <script src="https://pyxis-api.renetec.io/js/pyxis-api-core.js"></script>
+        <script>
+          let currentSshState;
+          let sshToggle;
+
+          function updateSecuritySettings() {
+            let newSshState = sshToggle.checked;
+            if (newSshState !== currentSshState) {
+              newSshState ? pyxis.system.ssh.enable() : pyxis.system.ssh.disable();
+              currentSshState = newSshState;
+              pyxis.system.ssh.getState().then((state)=>{
+                console.log("SSH state: " + state.enabled);
+              });
+            }
+          }
+
+          function populate() {
+            sshToggle = document.getElementById('ssh-switch');
+            sshToggle.onchange = function() {
+              updateSecuritySettings();
+            };
+            pyxis.system.ssh.getState().then((state)=>{
+              currentSshState = state.enabled;
+              sshToggle.checked = currentSshState;
+              console.log("SSH state: " + state.enabled);
+            });
+          }
+        </script>
+    </head>
+
+    <body onload="populate()">
+      <div class="main-content">
+
+        <div class="title-section">
+            <h1><button onclick= "window.location.href='index.html'" class="icon-button" ripple="circle"><i class="icon-keyboard-arrow-left"></i></button>Security</h1>
+        </div>
+
+          <div class="navigation-section">
+            <div class="page">
+              <span class="switch">
+              	<input type="checkbox" id="ssh-switch"/>
+              	<label for="ssh-switch"></label>
+              </span>
+              <span>
+                <label for="ssh-switch">Enable SSH access</label>
+              </span>
+            </div>
+          </div>
+        <!-- End content -->
+        <script src="static/js/material.js"></script>
+    </body>
+</html>

@@ -5,16 +5,26 @@
     <head>
         <title>Settings | About</title>
         <link rel="stylesheet" href="static/css/vendor/material.css"/>
+        <link rel="stylesheet" href="static/css/vendor/mdc.linear-progress.min.css"/>
         <link rel="stylesheet" href="static/css/assets/about.css"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
         <meta charset="utf-8"/>
         <script src="https://pyxis-api.renetec.io/js/pyxis-api-core.js"></script>
         <script src="static/js/update.js"></script>
         <script>
-          function populate() {
-              document.getElementById("ip").innerText = pyxis.sysinfo.getIP();
-              document.getElementById("hostname").innerText = pyxis.sysinfo.getHostname();
-              document.getElementById("sdk-version").innerText = 'Pyxis SDK v.' + pyxis.sysinfo.getSdkVersion();
+            function updateIp() {
+              pyxis.system.getIpAddress().then((ip)=>{document.getElementById("ip").innerHTML = ip.join('<br>');});
+            }
+
+            function populate() {
+              updateIp();
+              setInterval(updateIp, 5000);
+              pyxis.system.getHostname().then((hostname)=>{document.getElementById("hostname").innerText = hostname;});
+              pyxis.system.getVersions().then((versions) => {
+                document.getElementById("sdk-version").innerHTML =
+                  'Pyxis SDK v.' + versions.find((item)=> item.component == "pyxis-sdk").version + '<br>'
+                  + 'Chromium v.' + versions.find((item)=> item.component == "chromium").version;
+              });
           }
         </script>
     </head>
@@ -22,7 +32,7 @@
         <div class="main-content">
 
             <div class="title-section">
-                <h1><button onclick="window.location.href='index.html'" class="icon-button" ripple="circle"><i class="icon-keyboard-arrow-left"></i></button> About</h1>
+                <h1><button onclick="window.location.href='index.html'" class="icon-button" ripple="circle"><i class="icon-keyboard-arrow-left"></i></button>About</h1>
             </div>
 
             <div class="navigation-section">
@@ -47,7 +57,7 @@
                     </li>
                     <li>
                         <button onclick="Dialog.show(document.querySelector('#dialog-update')); checkForUpdates();" class="button item-text" ripple="ripple">
-                            <h3>System update</h3>
+                            <h3>Software update</h3>
                         </button>
                     </li>
                     <li>
@@ -60,21 +70,45 @@
 
         </div>
         <div id="dialog-update" class="dialog" hidden>
-            <h1 class="dialog-title">Check for updates</h1>
+            <h1 class="dialog-title">Software update</h1>
+
+            <div role="progressbar" class="mdc-linear-progress mdc-linear-progress--indeterminate mdc-linear-progress--closed">
+                <div class="mdc-linear-progress__buffer">
+                    <div class="mdc-linear-progress__buffer-bar"></div>
+                    <div class="mdc-linear-progress__buffer-dots"></div>
+                </div>
+                <div class="mdc-linear-progress__bar mdc-linear-progress__primary-bar">
+                    <span class="mdc-linear-progress__bar-inner"></span>
+                </div>
+                <div class="mdc-linear-progress__bar mdc-linear-progress__secondary-bar">
+                    <span class="mdc-linear-progress__bar-inner"></span>
+                </div>
+            </div>
+
             <div class="dialog-content">
-                <p id="log"></p>
+                <p><strong id="update-title"></strong><br><span id="update-message"></span></p>
             </div>
             <div class="dialog-content right-text">
                 <button id="updateBtn" onclick="updatePackage();" class="button raised bg-blue-500 color-white" disabled>Update</button>
             </div>
         </div>
-        <div class="overlay dialog-overlay" onclick="Dialog.hideCurrentDialog();onUpdateDialogClose();" hidden></div>
+        <div class="overlay dialog-overlay" onclick="hideDialog();" hidden></div>
         <!-- End content -->
         <script src="static/js/material.js"></script>
+        <script src="static/js/mdc.linearProgress.min.js"></script>
         <script>
             window.addEventListener("DOMContentLoaded", function() {
                 var md = new Material();
             });
+
+            let linearProgress = new mdc.linearProgress.MDCLinearProgress(document.querySelector('.mdc-linear-progress'));
+
+            function hideDialog() {
+                if (!isUpdateInProgress) {
+                    Dialog.hideCurrentDialog();
+                    onUpdateDialogClose();
+                }
+            }
         </script>
     </body>
 </html>

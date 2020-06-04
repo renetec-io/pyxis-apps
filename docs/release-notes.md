@@ -1,5 +1,34 @@
 # Pyxis SDK Release Notes
 
+## Version 0.5 (2020-06-03)
+
+### Control of SSH access
+To improve security, SSH access is not disabled by default in new installations. If needed, it must be enabled in Settings. API for this setting
+is also accessible to applications.
+
+### Hostname changing
+Hostname can be changed with new API available to applications.
+
+### Object-oriented JavaScript APIs
+APIs for FIFO pipes, UART, and GPIO now use OOP-style for convenience and consistency. Note, this change may affect your 
+existing applications. Please follow this [migration guide](https://github.com/renetec-io/pyxis-apps/blob/master/docs/migration-0_4.md).
+
+### System update management
+New API has been added to control SDK updates from within the applications. API includes version check and request for updates.
+See the [API reference](https://github.com/renetec-io/pyxis-apps/blob/master/docs/system-api.md) 
+for details.
+
+### Power control
+API has been added for requesting system reboot and shutdown. Screen power can be enabled and disabled, 
+and brightness can be adjusted when supported by the display hardware. Sleep mode allows screen blanking with a timeout 
+for a period of inactivity.
+
+### Other changes
+- Information about the Chromium engine is now available on the About page.
+- Fixed issues with mouse pointer behavior when used without a touchscreen.
+- GPIO handling performance improved.
+- Console output during bootup is now hidden.
+
 ## Version 0.3 (2020-05-05)
 
 ### Web-redirect

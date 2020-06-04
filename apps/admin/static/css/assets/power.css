@@ -246,4 +246,8 @@ body {
   justify-content: space-between;
 }
 
-/*# sourceMappingURL=installed.css.map */
+.navigation-section .list li span.item-text h3 {
+  display: inline;
+}
+
+/*# sourceMappingURL=power.css.map */
