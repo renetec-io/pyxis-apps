@@ -10,13 +10,14 @@
 	<link href="css/styles.css" rel="stylesheet">
 	<script language="JavaScript">
 		function init_write_deinit() {
-			pyxis.uart.init(115200);
-			pyxis.uart.write("Just saying hello...");
-			pyxis.uart.deinit();
+			var uart = pyxis.uart.open(0, 115200);
+			uart.write("Just saying hello...");
+			uart.close();
 		}
 
+		var global_uart;
 		function init_uart() {
-			pyxis.uart.init(115200, on_receive, on_transmit);
+			global_uart = pyxis.uart.open(0, 115200, {rxCallback: on_receive, txCallback: on_transmit});
 		}
 
 		function on_receive(str) {
@@ -30,7 +31,7 @@
 
 		function send_click(id) {
 			console.log('click:' + id);
-			pyxis.uart.write('clicked:'+ id);
+			global_uart.write('clicked:'+ id);
 		}
 	</script>
 </head>

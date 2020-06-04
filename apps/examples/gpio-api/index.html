@@ -12,33 +12,34 @@
 		const gpio = pyxis.gpio;
 		let gpio10NumChanges = 0;
 		let gpio24NumChanges = 0;
+		var gpio10, gpio24, gpio23;
 
 		function initPins() {
-			gpio.init(10, gpio.INPUT, {pud: gpio.PULL_UP});
-			gpio.init(24, gpio.INPUT, {pud: gpio.PULL_DOWN});
-			gpio.init(23, gpio.OUTPUT);
-			gpio.write(23, gpio.LOW);
+			gpio10 = gpio.open(10, gpio.INPUT, {pud: gpio.PULL_UP});
+			gpio24 = gpio.open(24, gpio.INPUT, {pud: gpio.PULL_DOWN});
+			gpio23 = gpio.open(23, gpio.OUTPUT);
+			gpio23.write(gpio.LOW);
 
 
 			setTimeout(function () {
-				gpio.onChange(10, {callback: gpio10Change});
-				gpio.onChange(24, {callback: gpio24Change});
-				gpio.onChange(23, {callback: gpio23Change});
+				gpio10.onChange({callback: gpio10Change});
+				gpio24.onChange({callback: gpio24Change});
+				gpio23.onChange({callback: gpio23Change});
 
-				document.getElementById('gpio-10-state').innerText = gpio.read(10) === gpio.HIGH ? 'HIGH' : 'LOW';
-				document.getElementById('gpio-24-state').innerText = gpio.read(24) === gpio.HIGH ? 'HIGH' : 'LOW';
-				document.getElementById('gpio-23-state').innerText = gpio.read(23) === gpio.HIGH ? 'HIGH' : 'LOW';
+				document.getElementById('gpio-10-state').innerText = gpio10.read() === gpio.HIGH ? 'HIGH' : 'LOW';
+				document.getElementById('gpio-24-state').innerText = gpio24.read() === gpio.HIGH ? 'HIGH' : 'LOW';
+				document.getElementById('gpio-23-state').innerText = gpio23.read() === gpio.HIGH ? 'HIGH' : 'LOW';
 			}, 100);
 		}
 
 		function deinitPins() {
-			gpio.onChange(10, {cancel: true});
-			gpio.onChange(24, {cancel: true});
-			gpio.onChange(23, {cancel: true});
+			gpio10.onChange({cancel: true});
+			gpio24.onChange({cancel: true});
+			gpio23.onChange({cancel: true});
 
-			gpio.deinit(10);
-			gpio.deinit(24);
-			gpio.deinit(23);
+			gpio10.close();
+			gpio24.close();
+			gpio23.close();
 		}
 
 		function gpio10Change(state) {
@@ -65,8 +66,8 @@
 		}
 
 		function toggleOutput() {
-			const nextState = gpio.read(23) === gpio.HIGH ? gpio.LOW : gpio.HIGH;
-			gpio.write(23, nextState);
+			const nextState = gpio23.read() === gpio.HIGH ? gpio.LOW : gpio.HIGH;
+			gpio23.write(nextState);
 		}
 	</script>
 </head>
