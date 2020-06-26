@@ -1,5 +1,18 @@
 # Pyxis SDK Release Notes
 
+## Version 0.6 (2020-06-23)
+
+### SSH access password change
+New API has been added, allowing to change the administrative user password. Password change is also available on the Security page in Settings.
+ 
+### Other changes
+- Linux kernel version is now available through version check API and also shown on the About page.
+- For improved security, the browser is now running from a separate system user.
+- A splash screen is now shown in the desired screen orientation (the change requires a complete image re-install).
+- Fixed an issue with connecting to a new Wi-Fi network in some scenarios.
+- Fixed eventual unrecoverable freezing of rendering (the fix requires a complete image re-install).
+- Fixed eventual intermittent UI freezing after page reload.
+
 ## Version 0.5 (2020-06-03)
 
 ### Control of SSH access

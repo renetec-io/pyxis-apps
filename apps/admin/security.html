@@ -6,6 +6,7 @@
         <title>Settings | Security</title>
         <link rel="stylesheet" href="static/css/vendor/material.css"/>
         <link rel="stylesheet" href="static/css/assets/security.css"/>
+        <link rel="stylesheet" href="static/css/vendor/keyboard.css"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
         <meta charset="utf-8"/>
         <script src="https://pyxis-api.renetec.io/js/pyxis-api-core.js"></script>
@@ -45,18 +46,213 @@
             <h1><button onclick= "window.location.href='index.html'" class="icon-button" ripple="circle"><i class="icon-keyboard-arrow-left"></i></button>Security</h1>
         </div>
 
-          <div class="navigation-section">
-            <div class="page">
+        <div class="navigation-section">
+          <ul class="list">
+            <li>
               <span class="switch">
               	<input type="checkbox" id="ssh-switch"/>
               	<label for="ssh-switch"></label>
               </span>
-              <span>
+              <span class="item-text">
                 <label for="ssh-switch">Enable SSH access</label>
               </span>
-            </div>
-          </div>
+            </li>
+            <li>
+              <span class="item-text" onclick="Dialog.show(document.querySelector('#dialog-change-password'));showDialog('dialog-change-password');" ripple="ripple">
+                  Change password
+              </span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div id="dialog-change-password" class="dialog" hidden>
+        <span class="item-text">Current password</span>
+        <div class="dialog-content">
+          <input type="text" id="current-password" class="text-input"/>
+        </div>
+        <span class="item-text">New password</span>
+        <div class="dialog-content">
+          <input type="text" id="new-password" class="text-input" />
+        </div>
+        <span class="item-text">Re-type new password</span>
+        <div class="dialog-content">
+          <input type="text" id="new-password-retype" class="text-input" />
+        </div>
+        <div class="dialog-content">
+          <span id="error-msg" class="secondary-text"></span>
+        </div>
+        <div class="dialog-content right-text">
+          <button onclick="hideDialog(true);" class="button raised bg-blue-500 color-white">Ok</button>
+        </div>
+      </div>
+
+      <div class="simple-keyboard-wrapper">
+        <div class="simple-keyboard"></div>
+      </div>
+      <div class="overlay dialog-overlay" onclick="hideDialog(false);" hidden></div>
+
         <!-- End content -->
         <script src="static/js/material.js"></script>
+        <script src="static/js/keyboard.js"></script>
+        <script>
+            window.addEventListener("DOMContentLoaded", function() {
+                var md = new Material();
+            });
+
+            let Keyboard = window.SimpleKeyboard.default;
+            let selectedInput;
+
+            let errorMsg;
+            let currentPassword;
+            let newPassword;
+            let newPasswordRetype;
+
+            let keyboard = new Keyboard({
+                onChange: input => onChange(input),
+                onKeyPress: button => onKeyPress(button),
+                theme: "hg-theme-default hg-theme-ios",
+                layout: {
+                    default: [
+                        "q w e r t y u i o p {bksp}",
+                        "a s d f g h j k l {enter}",
+                        "{shift} z x c v b n m , . {shift}",
+                        "{alt} {space} {back}"
+                    ],
+                    shift: [
+                        "Q W E R T Y U I O P {bksp}",
+                        "A S D F G H J K L {enter}",
+                        "{shiftactivated} Z X C V B N M , . {shiftactivated}",
+                        "{alt} {space} {back}"
+                    ],
+                    alt: [
+                        "1 2 3 4 5 6 7 8 9 0 {bksp}",
+                        `@ # $ & * ( ) ' " {enter}`,
+                        "{shift} % - + = / ; : ! ? {shift}",
+                        "{default} {space} {back}"
+                    ]
+                },
+                display: {
+                    "{alt}": ".?123",
+                    "{shift}": "⇧",
+                    "{shiftactivated}": "⇧",
+                    "{enter}": "return",
+                    "{bksp}": "⌫",
+                    "{space}": " ",
+                    "{default}": "ABC",
+                    "{back}": "⇦"
+                }
+            });
+
+            document.querySelectorAll(".text-input").forEach(input => {
+                input.addEventListener("focus", onInputFocus);
+                input.addEventListener("input", onInputChange);
+            });
+
+            function onInputFocus(event) {
+                selectedInput = `#${event.target.id}`;
+
+                keyboard.setOptions({
+                    inputName: event.target.id
+                });
+            }
+
+            function onInputChange(event) {
+                keyboard.setInput(event.target.value, event.target.id);
+            }
+
+            function onChange(input) {
+                let dialog = Dialog.getCurrentDialog();
+
+                if (dialog) {
+                    Dialog.getCurrentDialog().querySelector(selectedInput || '.text-input').value = input;
+                }
+
+                if (selectedInput == "#new-password" || selectedInput == "#new-password-retype") {
+                    if (newPassword.value !== newPasswordRetype.value) {
+                        errorMsg.innerText = "New and re-typed passwords do not match.";
+                    } else {
+                      errorMsg.innerText = " ";
+                    }
+                  }
+                }
+
+            function onKeyPress(button) {
+              if (button == '{enter}' || button == '{back}') {
+                    hideDialog(false);
+                }
+                else if (button.includes("{") && button.includes("}")) {
+                    handleLayoutChange(button);
+                }
+            }
+
+            function handleLayoutChange(button) {
+                let currentLayout = keyboard.options.layoutName;
+                let layoutName;
+
+                switch (button) {
+                    case "{shift}":
+                    case "{shiftactivated}":
+                    case "{default}":
+                        layoutName = currentLayout === "default" ? "shift" : "default";
+                        break;
+
+                    case "{alt}":
+                        layoutName = currentLayout === "alt" ? "default" : "alt";
+                        break;
+
+                    default:
+                        break;
+                }
+
+                if (layoutName) {
+                    keyboard.setOptions({
+                      layoutName: layoutName
+                    });
+                }
+            }
+
+            function showDialog(name) {
+                selectedInput = `#${name}`;
+                keyboard.setOptions({
+                    inputName: name
+                });
+
+                document.querySelector(".simple-keyboard-wrapper").style.display = "block";
+
+                errorMsg = document.getElementById('error-msg');
+                currentPassword = document.getElementById('current-password');
+                newPassword = document.getElementById('new-password');
+                newPasswordRetype =  document.getElementById('new-password-retype');
+            }
+
+            function hideDialog(save_changes) {
+                Dialog.hideCurrentDialog();
+                if (save_changes) {
+                  changePassword();
+                }
+                clearDialog();
+
+                document.querySelector(".simple-keyboard-wrapper").style.display = "none";
+            }
+
+            function changePassword() {
+                if (newPassword.value == newPasswordRetype.value) {
+                    pyxis.system.setAdminPassword(currentPassword.value, newPassword.value).then((rv) => {
+                        console.log(rv);
+                    });
+                }
+            }
+            function clearDialog() {
+                errorMsg.innerText = '';
+                currentPassword.value = '';
+                keyboard.clearInput('current-password');
+                newPassword.value = '';
+                keyboard.clearInput('new-password');
+                newPasswordRetype.value = '';
+                keyboard.clearInput('new-password-retype');
+            }
+
+        </script>
     </body>
 </html>

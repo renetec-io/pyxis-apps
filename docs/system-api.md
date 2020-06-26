@@ -9,6 +9,7 @@ The API allows controlling system functions. It is available by importing
     - [`getIpAddress()`](#getipaddress)
     - [`getHostname()`](#gethostname)
     - [`setHostname(hostname)`](#sethostnamehostname)
+    - [`setAdminPassword(current, new)`](#setadminpasswordcurrent-new)
     - [`getVersions()`](#getversions)
     - [`checkUpdates()`](#checkupdates)
     - [`update()`](#update)
@@ -52,6 +53,19 @@ pyxis.system.setHostname("myhost").then((rv) => {
 });
 ```
 
+### `setAdminPassword(current, new)`
+Used to change admin passsword.
+Returns a Promise object that resolves with "OK" in case of success.
+
+NOTE: This call will change SSH password as well.
+
+Example:
+```javascript
+pyxis.system.setAdminPassword("current", "newpassword").then((rv) => {
+    console.log(rv);
+});
+```
+
 ### `getVersions()`
 Returns a Promise object that resolves with an array of system component versions.
 
@@ -71,6 +85,10 @@ Example of `versions`:
   {
     component: "chromium",
     version: "78.0.3904.108"
+  },
+  {
+    component: "linux",
+    version: "4.19.97"
   }
 ]
 ```

@@ -55,6 +55,25 @@ body {
   padding-bottom: 20px;
 }
 
+.dialog {
+  min-width: 50%;
+}
+.dialog:not(.inline) {
+  top: calc(50% - 130px);
+  max-height: calc(80% - 265px);
+}
+@media screen and (min-width: 1200px) {
+  .dialog:not(.inline) {
+    top: calc(50% - 210px);
+    max-height: calc(80% - 425px);
+  }
+}
+@media screen and (min-width: 1200px) {
+  .dialog:not(.inline) {
+    top: calc(50% - 210px);
+    max-height: calc(80% - 425px);
+  }
+}
 .dialog .dialog-content {
   overflow: initial;
 }
@@ -206,7 +225,7 @@ body {
 }
 
 .switch {
-  margin-right: 5px;
+  margin-right: 5px !important;
   position: relative;
   top: -0.17em;
 }
@@ -313,23 +332,6 @@ body {
   .simple-keyboard-wrapper .simple-keyboard.hg-theme-default .hg-button {
     height: 100px;
     font-size: 1.5rem;
-  }
-}
-
-.dialog:not(.inline) {
-  top: calc(50% - 130px);
-  max-height: calc(80% - 265px);
-}
-@media screen and (min-width: 1200px) {
-  .dialog:not(.inline) {
-    top: calc(50% - 210px);
-    max-height: calc(80% - 425px);
-  }
-}
-@media screen and (min-width: 1200px) {
-  .dialog:not(.inline) {
-    top: calc(50% - 210px);
-    max-height: calc(80% - 425px);
   }
 }
 

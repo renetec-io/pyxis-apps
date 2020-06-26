@@ -23,7 +23,8 @@
               pyxis.system.getVersions().then((versions) => {
                 document.getElementById("sdk-version").innerHTML =
                   'Pyxis SDK v.' + versions.find((item)=> item.component == "pyxis-sdk").version + '<br>'
-                  + 'Chromium v.' + versions.find((item)=> item.component == "chromium").version;
+                  + 'Chromium v.' + versions.find((item)=> item.component == "chromium").version + '<br>'
+                  + 'Linux kernel v.' + versions.find((item)=> item.component == "linux").version;
               });
           }
         </script>
