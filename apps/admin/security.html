@@ -48,19 +48,23 @@
 
         <div class="navigation-section">
           <ul class="list">
-            <li>
+            <li ripple="ripple">
               <span class="switch">
               	<input type="checkbox" id="ssh-switch"/>
               	<label for="ssh-switch"></label>
               </span>
               <span class="item-text">
-                <label for="ssh-switch">Enable SSH access</label>
+                <label for="ssh-switch">
+                  <h3>Enable SSH access</h3>
+                </label>
               </span>
             </li>
             <li>
-              <span class="item-text" onclick="Dialog.show(document.querySelector('#dialog-change-password'));showDialog('dialog-change-password');" ripple="ripple">
-                  Change password
-              </span>
+              <button onclick="Dialog.show(document.querySelector('#dialog-change-password'));showDialog('dialog-change-password');" class="button item-text" ripple="ripple">
+                <span class="item-text">
+                    <h3>Change password</h3>
+                </span>
+              </button>
             </li>
           </ul>
         </div>
@@ -128,7 +132,7 @@
                     alt: [
                         "1 2 3 4 5 6 7 8 9 0 {bksp}",
                         `@ # $ & * ( ) ' " {enter}`,
-                        "{shift} % - + = / ; : ! ? {shift}",
+                        "{shift} % - _ + = / ; : ! ? {shift}",
                         "{default} {space} {back}"
                     ]
                 },

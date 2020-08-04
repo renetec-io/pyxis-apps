@@ -224,7 +224,8 @@ body {
 }
 
 .switch {
-  margin-right: 5px !important;
+  margin-left: 10px !important;
+  margin-right: 10px !important;
   position: relative;
   top: -0.17em;
 }

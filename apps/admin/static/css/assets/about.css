@@ -224,7 +224,8 @@ body {
 }
 
 .switch {
-  margin-right: 5px !important;
+  margin-left: 10px !important;
+  margin-right: 10px !important;
   position: relative;
   top: -0.17em;
 }
@@ -238,7 +239,7 @@ body {
 }
 .navigation-section .list li span,
 .dialog-content .list li span {
-  margin: 22px 0;
+  margin: 1.3em 0;
 }
 .navigation-section .list li span.checkbox,
 .dialog-content .list li span.checkbox {
@@ -257,7 +258,7 @@ body {
 }
 .navigation-section .list li .secondary-text,
 .dialog-content .list li .secondary-text {
-  margin: 10px 0 0;
+  margin: 0.6em 0 0;
 }
 .navigation-section .list .flex,
 .dialog-content .list .flex {
@@ -265,8 +266,8 @@ body {
   justify-content: space-between;
 }
 
-.navigation-section .list li span.item-text h3 {
-  display: inline;
+.navigation-section .list li h3 {
+  margin: 0;
 }
 
 /*# sourceMappingURL=about.css.map */

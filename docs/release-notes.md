@@ -1,5 +1,11 @@
 # Pyxis SDK Release Notes
 
+## Version 0.6.3 (2020-07-27)
+
+### Fixed
+- Issue with handling page reload when using GPIO API.
+- Missing underscore character on the on-screen keyboard in the Settings.
+
 ## Version 0.6 (2020-06-23)
 
 ### SSH access password change
