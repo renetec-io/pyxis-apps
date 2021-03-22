@@ -1,0 +1,54 @@
+<!-- Copyright (c) Renetec, Inc. All rights reserved. -->
+<!-- The source code is available at https://github.com/renetec-io/pyxis-apps -->
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>PYXIS GPIO API EXAMPLE</title>
+
+	<link href="css/styles.css" rel="stylesheet">
+	<script language="JavaScript">
+		const gpio = pyxis.gpio;
+		var gpio23, gpio24;
+
+		function initPins() {
+			gpio23 = gpio.open(23, gpio.OUTPUT);
+			gpio24 = gpio.open(24, gpio.OUTPUT);
+			gpio23.write(gpio.LOW);
+			gpio24.write(gpio.LOW);
+		}
+
+		function deinitPins() {
+			gpio24.onChange({cancel: true});
+			gpio23.onChange({cancel: true});
+			gpio23.close();
+			gpio24.close();
+		}
+
+		function fwd() {
+			gpio23.write(gpio.LOW);
+			gpio24.write(gpio.HIGH);
+		}
+		function rev() {
+			gpio23.write(gpio.HIGH);
+			gpio24.write(gpio.LOW);
+		}
+		function stop() {
+			gpio23.write(gpio.LOW);
+			gpio24.write(gpio.LOW);
+		}
+	</script>
+</head>
+<body onload="initPins();" onunload="deinitPins()">
+<div class="container">
+	<h2>MOTOR CONTROL</h2>
+	<div class="buttons">
+		<div class="button" onclick="fwd()">FORWARD</div>
+		<div id="stop-button" class="button red" onclick="stop()">STOP</div>
+		<div class="button" onclick="rev()">REVERSE</div>
+	</div>
+</div>
+
+</body>
+</html>

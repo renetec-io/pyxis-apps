@@ -1,0 +1,3 @@
+name: 'Motor control panel demo'
+version: '0.1'
+desc: 'Simple control panel for DC motor'
